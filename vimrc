@@ -55,7 +55,7 @@ set virtualedit=block             " allow the cursor to go in to "invalid" place
 set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
 set gdefault                    " search/replace "globally" (on a line) by default
-set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
+set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·,eol:¬
 
 set list                        " show invisible characters by default,
                                 " but it is enabled for some file types (see later)
