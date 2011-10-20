@@ -57,7 +57,7 @@ set incsearch                   " show search matches as you type
 set gdefault                    " search/replace "globally" (on a line) by default
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
 
-set nolist                      " don't show invisible characters by default,
+set list                        " show invisible characters by default,
                                 " but it is enabled for some file types (see later)
 set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
                                 "    paste mode, where you can paste mass data
@@ -371,6 +371,7 @@ if has("autocmd")
 
         " Show invisible characters in all of these files
         autocmd filetype vim setlocal list
+        autocmd filetype php setlocal list
         autocmd filetype python,rst setlocal list
         autocmd filetype ruby setlocal list
         autocmd filetype javascript,css setlocal list
@@ -501,6 +502,7 @@ if has("autocmd")
 		" PHP Specific options. Yay!
 		autocmd FileType php let php_sql_query=1
 		autocmd FileType php let php_htmlInStrings=1
+		autocmd FileType php setlocal noexpandtab
 		autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 		autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 		autocmd FileType css set omnifunc=csscomplete#CompleteCSS
