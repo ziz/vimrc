@@ -25,8 +25,8 @@ set nocompatible
 " Use pathogen to easily modify the runtime path to include all plugins under
 " the ~/.vim/bundle directory
 filetype off                    " force reloading *after* pathogen loaded
+call pathogen#infect()
 call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
 filetype plugin indent on       " enable detection, plugins and indenting in one step
 
 " Change the mapleader from \ to ,
@@ -494,6 +494,24 @@ if has("autocmd")
         autocmd filetype textile syntax region frontmatter start=/\%^---$/ end=/^---$/
         autocmd filetype textile highlight link frontmatter Comment
     augroup end "}}}
+
+    augroup php_files "{{{
+		au!
+		
+		" PHP Specific options. Yay!
+		autocmd FileType php let php_sql_query=1
+		autocmd FileType php let php_htmlInStrings=1
+		autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+		autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+		autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+		autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+
+		" Enable lint checking for PHP files
+		autocmd FileType php setlocal makeprg=php\ -l\ %
+		autocmd FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+	augroup end "}}}
+
+		
 endif
 " }}}
 
