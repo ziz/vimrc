@@ -46,3 +46,6 @@
 [submodule "vim/bundle/vim-php-indenting"]
 	path = vim/bundle/vim-php-indenting
 	url = https://github.com/2072/PHP-Indenting-for-VIm
+[submodule "vim/bundle/supertab"]
+	path = vim/bundle/supertab
+	url = https://github.com/ervandew/supertab.git
