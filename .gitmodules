@@ -40,12 +40,6 @@
 [submodule "vim/bundle/vim-colors-solarized"]
 	path = vim/bundle/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "vim/bundle/vim-php-syntax"]
-	path = vim/bundle/vim-php-syntax
-	url = https://github.com/paulyg/Vim-PHP-Stuff.git
-[submodule "vim/bundle/vim-php-indenting"]
-	path = vim/bundle/vim-php-indenting
-	url = https://github.com/2072/PHP-Indenting-for-VIm
 [submodule "vim/bundle/supertab"]
 	path = vim/bundle/supertab
 	url = https://github.com/ervandew/supertab.git
@@ -55,3 +49,6 @@
 [submodule "vim/bundle/vim-markdown"]
 	path = vim/bundle/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git
+[submodule "PIV"]
+	path = PIV
+	url = https://github.com/spf13/PIV.git
