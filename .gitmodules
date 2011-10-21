@@ -49,6 +49,3 @@
 [submodule "vim/bundle/vim-markdown"]
 	path = vim/bundle/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git
-[submodule "PIV"]
-	path = PIV
-	url = https://github.com/spf13/PIV.git
