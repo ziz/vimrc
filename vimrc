@@ -26,7 +26,11 @@ set nocompatible
 " the ~/.vim/bundle directory
 filetype off                    " force reloading *after* pathogen loaded
 call pathogen#infect()
-call pathogen#helptags()
+
+" This takes about six seconds, currently.
+" call pathogen#helptags()
+" Instead, run this when updating: vim -c 'call pathogen#helptags()|q'
+
 filetype plugin indent on       " enable detection, plugins and indenting in one step
 
 " Change the mapleader from \ to ,
@@ -319,7 +323,10 @@ let NERDTreeMouseMode=2
 
 " Don't display these kinds of files
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
-            \ '\.o$', '\.so$', '\.egg$', '^\.git$' ]
+            \ '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', 
+			\ '\~$']
+
+let NERDTreeShowLineNumbers=1
 
 " }}}
 
@@ -454,7 +461,7 @@ if has("autocmd")
         autocmd filetype python imap <buffer> <S-F5> <Esc>:w<CR>:!ipython %<CR>
 
         " Run a quick static syntax check every time we save a Python file
-        autocmd BufWritePost *.py call Pyflakes()
+		"autocmd BufWritePost *.py call Pyflakes()
     augroup end " }}}
 
     augroup ruby_files "{{{
@@ -607,3 +614,5 @@ else
     let g:solarized_termcolors=256
     colorscheme solarized
 endif
+
+
