@@ -10,18 +10,9 @@
 [submodule "vim/bundle/abolish"]
 	path = vim/bundle/abolish
 	url = git://github.com/nvie/vim-abolish.git
-[submodule "vim/bundle/pep8"]
-	path = vim/bundle/pep8
-	url = git://github.com/nvie/vim-pep8.git
-[submodule "vim/bundle/pyflakes"]
-	path = vim/bundle/pyflakes
-	url = git://github.com/nvie/vim-pyflakes.git
 [submodule "vim/bundle/toggle_mouse"]
 	path = vim/bundle/toggle_mouse
 	url = git://github.com/nvie/vim-togglemouse.git
-[submodule "vim/bundle/pyunit"]
-	path = vim/bundle/pyunit
-	url = git://github.com/nvie/vim-pyunit.git
 [submodule "vim/bundle/rst_tables"]
 	path = vim/bundle/rst_tables
 	url = git://github.com/nvie/vim-rst-tables.git
