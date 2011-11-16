@@ -1,9 +1,5 @@
 "
-" Personal preference .vimrc file
-" Maintained by Vincent Driessen <vincent@datafox.nl>
-"
-" My personally preferred version of vim is the one with the "big" feature
-" set, in addition to the following configure options:
+" vimrc - Justin de Vesine (justin@devesine.com)
 "
 "     ./configure --with-features=BIG
 "                 --enable-pythoninterp --enable-rubyinterp
@@ -18,7 +14,7 @@
 "     vim -u NONE
 "
 
-" Use vim settings, rather then vi settings (much better!)
+" Use vim settings
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
@@ -26,12 +22,11 @@ set nocompatible
 " the ~/.vim/bundle directory
 filetype off                    " force reloading *after* pathogen loaded
 call pathogen#infect()
-
-" This takes about six seconds, currently.
-" call pathogen#helptags()
-" Instead, run this when updating: vim -c 'call pathogen#helptags()|q'
-
 filetype plugin indent on       " enable detection, plugins and indenting in one step
+
+" call pathogen#helptags() " Regenerate helpfiles for bundles.
+" Takes a long time, shouldn't be run at startup.
+" Instead, run this when updating: vim -c 'call pathogen#helptags()|q'
 
 " Change the mapleader from \ to ,
 let mapleader=","
@@ -71,6 +66,8 @@ set mouse=a                     " enable using the mouse if terminal emulator
 set fileformats="unix,dos,mac"
 set formatoptions+=1            " When wrapping paragraphs, don't end lines
                                 "    with 1-letter words (looks stupid)
+
+set synmaxcol=300				" don't try to syntax highlight very long lines
 
 " Thanks to Steve Losh for this liberating tip
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
@@ -131,8 +128,9 @@ if v:version >= 730
     set undodir=~/.vim/.undo,~/tmp,/tmp
 endif
 set nobackup                    " do not keep backup files, it's 70's style cluttering
-set noswapfile                  " do not write annoying intermediate swap files,
-                                "    who did ever restore from swap files anyway?
+set swapfile					" swapfiles are critical working with large files
+set updatecount=0				" but not for general editing
+
 set directory=~/.vim/.tmp,~/tmp,/tmp
                                 " store swap files in one of these directories
                                 "    (in case swapfile is ever turned on)
@@ -488,8 +486,7 @@ if has("autocmd")
     augroup javascript_files "{{{
         au!
 
-        autocmd filetype javascript setlocal expandtab
-        autocmd filetype javascript setlocal listchars=trail:·,extends:#,nbsp:·
+        autocmd filetype javascript setlocal noexpandtab
         autocmd filetype javascript setlocal foldmethod=marker foldmarker={,}
     augroup end "}}}
 
@@ -565,11 +562,14 @@ au filetype vim set formatoptions-=o
                      " for vim files, so explicitly unset it again
 " }}}
 
-" Extra user or machine specific settings {{{
-source ~/.vim/user.vim
+" ZenCoding settings {{{
+
+let g:user_zen_expandabbr_key = '<c-e>'
+let g:use_zen_complete_tag = 1
+
 " }}}
 
-" Creating underline/overline headings for markup languages
+" Creating underline/overline headings for markup languages {{{
 " Inspired by http://sphinx.pocoo.org/rest.html#sections
 nnoremap <leader>1 yyPVr=jyypVr=
 nnoremap <leader>2 yyPVr*jyypVr*
@@ -577,12 +577,15 @@ nnoremap <leader>3 yypVr=
 nnoremap <leader>4 yypVr-
 nnoremap <leader>5 yypVr^
 nnoremap <leader>6 yypVr"
+" }}}
 
+" Lorem Ipsum {{{
 iab lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit
 iab llorem Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam lacus ligula, accumsan id imperdiet rhoncus, dapibus vitae arcu.  Nulla non quam erat, luctus consequat nisi
 iab lllorem Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam lacus ligula, accumsan id imperdiet rhoncus, dapibus vitae arcu.  Nulla non quam erat, luctus consequat nisi.  Integer hendrerit lacus sagittis erat fermentum tincidunt.  Cras vel dui neque.  In sagittis commodo luctus.  Mauris non metus dolor, ut suscipit dui.  Aliquam mauris lacus, laoreet et consequat quis, bibendum id ipsum.  Donec gravida, diam id imperdiet cursus, nunc nisl bibendum sapien, eget tempor neque elit in tortor
+" }}}
 
-if has("gui_running")
+if has("gui_running") " {{{
     "set guifont=Inconsolata:h14
 	set guifont=Consolas:h12
     "colorscheme baycomb
@@ -613,6 +616,19 @@ else
     set bg=dark
     let g:solarized_termcolors=256
     colorscheme solarized
-endif
+endif " }}}
 
+" SuperTab options {{{
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-p>"
+" }}}
+ 
+" Quickly edit/reload the vimrc file {{{
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" }}}
+
+" Extra user or machine specific settings {{{
+source ~/.vim/user.vim
+" }}}
 
