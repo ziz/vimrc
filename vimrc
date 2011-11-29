@@ -102,6 +102,25 @@ function! MyFoldText()
     return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
 endfunction
 set foldtext=MyFoldText()
+
+" Inform folding function {{{
+function! MyInformFoldText()
+    let line = getline(v:foldstart + 1)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
+    return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
+endfunction
+" }}}
+	
 " }}}
 
 " Editor layout {{{
@@ -519,6 +538,12 @@ if has("autocmd")
 		autocmd FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 	augroup end "}}}
 
+	augroup inform_files "{{{
+		au!
+		au BufNewFile,BufRead *.ni      setf inform7
+		autocmd FileType inform7 setlocal foldtext=MyInformFoldText()
+"
+		"}}}
 		
 endif
 " }}}
