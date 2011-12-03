@@ -542,6 +542,7 @@ if has("autocmd")
 		au!
 		au BufNewFile,BufRead *.ni      setf inform7
 		autocmd FileType inform7 setlocal foldtext=MyInformFoldText()
+		autocmd FileType inform7 setlocal wrap
 "
 		"}}}
 		
