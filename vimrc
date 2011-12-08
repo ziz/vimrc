@@ -83,7 +83,7 @@ nnoremap <C-y> 2<C-y>
 set foldenable                  " enable folding
 set foldcolumn=2                " add a fold column
 set foldmethod=marker           " detect triple-{ style fold markers
-set foldlevelstart=0            " start out with everything folded
+set foldlevelstart=99           " start out with nothing folded
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
                                 " which commands trigger auto-unfold
 function! MyFoldText()
@@ -164,7 +164,7 @@ set visualbell                  " don't beep
 set noerrorbells                " don't beep
 set showcmd                     " show (partial) command in the last line of the screen
                                 "    this also shows visual selection info
-set nomodeline                  " disable mode lines (security measure)
+set modeline                  " enable mode lines (disabling is a security measure)
 "set ttyfast                     " always use a fast terminal
 set cursorline                  " underline the current line, for quick orientation
 
@@ -194,16 +194,9 @@ endif
 " }}}
 
 " Shortcut mappings {{{
-" Since I never use the ; key anyway, this is a real optimization for almost
-" all Vim commands, since we don't have to press that annoying Shift key that
-" slows the commands down
-nnoremap ; :
 
 " Avoid accidental hits of <F1> while aiming for <Esc>
 map! <F1> <Esc>
-
-" Quickly close the current window
-nnoremap <leader>q :q<CR>
 
 " Use Q for formatting the current paragraph (or visual selection)
 vmap Q gq
@@ -218,14 +211,8 @@ nmap mk :make<CR>
 " Swap implementations of ` and ' jump to markers
 " By default, ' jumps to the marked line, ` jumps to the marked line and
 " column, so swap them
-nnoremap ' `
-nnoremap ` '
-
-" Use the damn hjkl keys
-" map <up> <nop>
-" map <down> <nop>
-" map <left> <nop>
-" map <right> <nop>
+"nnoremap ' `
+"nnoremap ` '
 
 " Remap j and k to act as expected when used on long, wrapped, lines
 "nnoremap j gj
@@ -461,7 +448,7 @@ if has("autocmd")
         " PEP8 compliance (set 1 tab = 4 chars explicitly, even if set
         " earlier, as it is important)
         autocmd filetype python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-        autocmd filetype python setlocal textwidth=80
+		" autocmd filetype python setlocal textwidth=80
         autocmd filetype python match ErrorMsg '\%>80v.\+'
 
         " But disable autowrapping as it is super annoying
