@@ -67,7 +67,7 @@ set fileformats="unix,dos,mac"
 set formatoptions+=1            " When wrapping paragraphs, don't end lines
                                 "    with 1-letter words (looks stupid)
 
-set synmaxcol=300				" don't try to syntax highlight very long lines
+set synmaxcol=600				" don't try to syntax highlight very long lines
 
 " Thanks to Steve Losh for this liberating tip
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
@@ -181,12 +181,16 @@ function! QFixToggle(forced)
     let g:qfix_win = bufnr("$")
   endif
 endfunction
+
+" don't automatically fold php files"
+"let g:DisableAutoPHPFolding = 1
+
 " }}}
 
 " Highlighting {{{
-if &t_Co >= 256 || has("gui_running")
-   colorscheme molokai
-endif
+"if &t_Co >= 256 || has("gui_running")
+"   colorscheme molokai
+"endif
 
 if &t_Co > 2 || has("gui_running")
    syntax on                    " switch syntax highlighting on, when the terminal has colors
