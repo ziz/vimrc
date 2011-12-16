@@ -184,6 +184,8 @@ function! QFixToggle(forced)
   endif
 endfunction
 
+nmap <silent> <leader>; :TlistToggle<CR>
+
 " don't automatically fold php files"
 "let g:DisableAutoPHPFolding = 1
 
@@ -202,7 +204,8 @@ endif
 " Shortcut mappings {{{
 
 " Avoid accidental hits of <F1> while aiming for <Esc>
-map! <F1> <Esc>
+" ...which I've never done.
+"map! <F1> <Esc>
 
 " Use Q for formatting the current paragraph (or visual selection)
 vmap Q gq
@@ -643,6 +646,10 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-p>"
 " }}}
  
+" ShowFunc options {{{
+let g:ShowFuncScanType = "current"
+" }}}
+
 " Quickly edit/reload the vimrc file {{{
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
