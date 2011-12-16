@@ -68,6 +68,8 @@ set formatoptions+=1            " When wrapping paragraphs, don't end lines
                                 "    with 1-letter words (looks stupid)
 
 set synmaxcol=600				" don't try to syntax highlight very long lines
+set textwidth=0
+set wrapmargin=4
 
 " Thanks to Steve Losh for this liberating tip
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
@@ -608,6 +610,7 @@ if has("gui_running") " {{{
     "colorscheme baycomb
     "colorscheme mustang
     "colorscheme molokai
+    set bg=dark
     let g:solarized_termcolors=256
     let g:solarized_bold = 1
     let g:solarized_underline = 1
