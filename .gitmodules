@@ -67,3 +67,6 @@
 [submodule "vim/bundle/vim-afterimage"]
 	path = vim/bundle/vim-afterimage
 	url = https://github.com/tpope/vim-afterimage.git
+[submodule "vim/bundle/easytags"]
+	path = vim/bundle/easytags
+	url = https://github.com/xolox/vim-easytags.git
