@@ -542,6 +542,13 @@ if has("autocmd")
 "
 		"}}}
 		
+	augroup tads_files "{{{
+		au!
+		au BufNewFile,BufRead *.t      setf tads
+		au FileType tads let b:delimitMate_nesting_quotes = ['"', "'"]
+		au FileType tads let b:delimitMate_expand_cr = 1
+"
+		"}}}
 endif
 " }}}
 
@@ -648,6 +655,10 @@ let g:SuperTabContextDefaultCompletionType = "<c-p>"
  
 " ShowFunc options {{{
 let g:ShowFuncScanType = "current"
+" }}}
+
+" delimitMate options {{{
+"let loaded_delimitMate = 1
 " }}}
 
 " Quickly edit/reload the vimrc file {{{
