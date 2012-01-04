@@ -661,6 +661,10 @@ let g:ShowFuncScanType = "current"
 "let loaded_delimitMate = 1
 " }}}
 
+" YankRing options {{{
+let g:yankring_max_element_length = 65536
+" }}}
+
 " Quickly edit/reload the vimrc file {{{
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
