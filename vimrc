@@ -545,6 +545,7 @@ if has("autocmd")
 	augroup tads_files "{{{
 		au!
 		au BufNewFile,BufRead *.t      setf tads
+        au FileType tads setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 		au FileType tads let b:delimitMate_nesting_quotes = ['"', "'"]
 		au FileType tads let b:delimitMate_expand_cr = 1
 "
@@ -651,6 +652,7 @@ endif " }}}
 " SuperTab options {{{
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-p>"
+let g:SuperTabCrMapping = 0
 " }}}
  
 " ShowFunc options {{{
@@ -659,6 +661,7 @@ let g:ShowFuncScanType = "current"
 
 " delimitMate options {{{
 "let loaded_delimitMate = 1
+let g:delimitMate_expand_cr = 1
 " }}}
 
 " YankRing options {{{
