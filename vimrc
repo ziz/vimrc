@@ -431,6 +431,9 @@ if has("autocmd")
         let g:closetag_default_xml=1
         autocmd filetype html,htmldjango let b:closetag_html_style=1
         autocmd filetype html,xhtml,xml source ~/.vim/scripts/closetag.vim
+		autocmd filetype html,php syn region  htmlScriptRegion start=+<script [^>]*type *=[^>]*htmlScriptRegion[^>]*>+ keepend end=+</script>+me=s-1 contains=@htmlTop
+		autocmd filetype html,php syn sync match htmlHighlight groupthere htmlScriptRegion "<script [^>]*type *=[^>]*html"
+
     augroup end " }}}
 
     augroup python_files "{{{
