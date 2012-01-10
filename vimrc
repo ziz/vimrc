@@ -425,11 +425,13 @@ if has("autocmd")
             set ft=html
         endfun
 
-        autocmd BufNewFile,BufRead *.html,*.htm call s:DetectHTMLVariant()
+        "autocmd BufNewFile,BufRead *.html,*.htm call s:DetectHTMLVariant()
 
         " Auto-closing of HTML/XML tags
         let g:closetag_default_xml=1
         autocmd filetype html,htmldjango let b:closetag_html_style=1
+        autocmd filetype html,xhtml,xml setlocal formatoptions-=tc
+        autocmd filetype html,xhtml,xml setlocal wrap
         autocmd filetype html,xhtml,xml source ~/.vim/scripts/closetag.vim
 		autocmd filetype html,php syn region  htmlScriptRegion start=+<script [^>]*type *=[^>]*htmlScriptRegion[^>]*>+ keepend end=+</script>+me=s-1 contains=@htmlTop
 		autocmd filetype html,php syn sync match htmlHighlight groupthere htmlScriptRegion "<script [^>]*type *=[^>]*html"
