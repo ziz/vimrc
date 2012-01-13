@@ -66,6 +66,7 @@ set mouse=a                     " enable using the mouse if terminal emulator
 set fileformats="unix,dos,mac"
 set formatoptions+=1            " When wrapping paragraphs, don't end lines
                                 "    with 1-letter words (looks stupid)
+set formatoptions-=t
 
 set synmaxcol=600				" don't try to syntax highlight very long lines
 set textwidth=0
@@ -429,11 +430,15 @@ if has("autocmd")
 
         " Auto-closing of HTML/XML tags
         let g:closetag_default_xml=1
-        autocmd filetype html,htmldjango let b:closetag_html_style=1
+        autocmd filetype html let b:closetag_html_style=1
         autocmd filetype html,xhtml,xml setlocal formatoptions-=tc
         autocmd filetype html,xhtml,xml setlocal wrap
         autocmd filetype html,xhtml,xml source ~/.vim/scripts/closetag.vim
-		autocmd filetype html,php syn region  htmlScriptRegion start=+<script [^>]*type *=[^>]*htmlScriptRegion[^>]*>+ keepend end=+</script>+me=s-1 contains=@htmlTop
+        " local syntax overrides for html in text/html script tags
+        autocmd filetype html,php syn clear javaScript
+		autocmd filetype html,php syn region  javaScript start=+<script\(>\|\([^>]\(type *=[^>]*html\)\@!\)*\)>+ keepend end=+</script>+me=s-1 contains=@htmlJavaScript,htmlCssStyleComment,htmlScriptTag,@htmlPreproc
+		autocmd filetype html,php syn region  htmlScriptRegion start=+<script [^>]*type *=[^>]*html[^>]*>+ keepend end=+</script>+me=s-1 contains=@htmlTop
+		autocmd filetype html,php syn sync match htmlHighlight groupthere javaScript "<script \([^>]\(type *=[^>]*html\)\@!\)*>"
 		autocmd filetype html,php syn sync match htmlHighlight groupthere htmlScriptRegion "<script [^>]*type *=[^>]*html"
 
     augroup end " }}}
