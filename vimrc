@@ -428,6 +428,8 @@ if has("autocmd")
 
         "autocmd BufNewFile,BufRead *.html,*.htm call s:DetectHTMLVariant()
 
+        autocmd BufNewFile,BufRead *.html,*.htm set ft=php
+
         " Auto-closing of HTML/XML tags
         let g:closetag_default_xml=1
         autocmd filetype html let b:closetag_html_style=1
@@ -681,6 +683,18 @@ let g:yankring_max_element_length = 65536
 " Quickly edit/reload the vimrc file {{{
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" }}}
+
+" Syntastic {{{
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_enable_signs=1
+let g:syntastic_echo_current_error=1
+let g:syntastic_mode_map = { 'mode': 'passive',
+							\ 'active_filetypes' : [],
+							\ 'passive_filetypes': [] }
+
 " }}}
 
 " Extra user or machine specific settings {{{
