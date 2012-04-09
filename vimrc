@@ -428,11 +428,11 @@ if has("autocmd")
 
         "autocmd BufNewFile,BufRead *.html,*.htm call s:DetectHTMLVariant()
 
-        autocmd BufNewFile,BufRead *.html,*.htm set ft=php
+        autocmd BufNewFile,BufRead *.html,*.htm,*.tmpl set ft=html
 
         " Auto-closing of HTML/XML tags
         let g:closetag_default_xml=1
-        autocmd filetype html let b:closetag_html_style=1
+		" autocmd filetype html let b:closetag_html_style=1
         autocmd filetype html,xhtml,xml setlocal formatoptions-=tc
         autocmd filetype html,xhtml,xml setlocal wrap
         autocmd filetype html,xhtml,xml source ~/.vim/scripts/closetag.vim
@@ -695,6 +695,12 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 							\ 'active_filetypes' : [],
 							\ 'passive_filetypes': [] }
 
+" }}}
+
+" Gitv {{{
+nmap <leader>gv :Gitv --all<cr>
+nmap <leader>gV :Gitv! --all<cr>
+vmap <leader>gV :Gitv! --all<cr>
 " }}}
 
 " Extra user or machine specific settings {{{
