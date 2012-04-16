@@ -403,6 +403,14 @@ if has("autocmd")
         autocmd filetype javascript,css setlocal list
     augroup end "}}}
 
+    augroup vim_help "{{{
+    	au!
+
+    	autocmd filetype help setlocal nonumber
+    	autocmd filetype help setlocal norelativenumber
+    	autocmd filetype help setlocal foldcolumn=0
+	"}}}
+
     augroup vim_files "{{{
         au!
 
@@ -744,6 +752,23 @@ function! PulseCursorLine()
     windo set cursorline
     execute current_window . 'wincmd w'
 endfunction
+
+" }}}
+
+" numbertoggle {{{
+
+function! LineNumberToggle()
+	if(&relativenumber == 1)
+		set nonumber
+		set norelativenumber
+	elseif (&number == 1)
+		set relativenumber
+	else
+		set number
+	endif
+endfunc
+
+nnoremap <silent> <C-l> :call LineNumberToggle()<cr>
 
 " }}}
 
