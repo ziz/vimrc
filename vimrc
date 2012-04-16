@@ -270,8 +270,8 @@ nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 
 " Keep search matches in the middle of the window and pulse the line when moving
 " to them.
-nnoremap n n:call PulseCursorLine()<cr>
-nnoremap N N:call PulseCursorLine()<cr>
+nnoremap <silent> n n:call PulseCursorLine()<cr>
+nnoremap <silent> N N:call PulseCursorLine()<cr>
 
 " Quickly get out of insert mode without your fingers having to leave the
 " home row (either use 'jj' or 'jk')
@@ -719,25 +719,25 @@ function! PulseCursorLine()
     let old_hi = split(old_hi, '\n')[0]
     let old_hi = substitute(old_hi, 'xxx', '', '')
 
-    hi CursorLine guibg=#2a2a2a
-    redraw
-    sleep 5m
+    "hi CursorLine guibg=#2a2a2a
+    "redraw
+    "sleep 5m
 
     hi CursorLine guibg=#3a3a3a
     redraw
-    sleep 5m
+    sleep 20m
 
     hi CursorLine guibg=#4a4a4a
     redraw
-    sleep 5m
+    sleep 30m
 
     hi CursorLine guibg=#3a3a3a
     redraw
-    sleep 5m
+    sleep 30m
 
     hi CursorLine guibg=#2a2a2a
     redraw
-    sleep 5m
+    sleep 20m
 
     execute 'hi ' . old_hi
 
