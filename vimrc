@@ -145,10 +145,12 @@ set switchbuf=useopen           " reveal already opened files from the
                                 " buffers
 set history=1000                " remember more commands and search history
 set undolevels=1000             " use many muchos levels of undo
-if v:version >= 730
-    set undofile                " keep a persistent backup file
-    set undodir=~/.vim/.undo,~/tmp,/tmp
+
+if v:version >= '702'
+	set undofile                " keep a persistent backup file
+	set undodir=~/.vim/.undo,~/tmp,/tmp
 endif
+
 set nobackup                    " do not keep backup files, it's 70's style cluttering
 set swapfile					" swapfiles are critical working with large files
 set updatecount=0				" but not for general editing
@@ -161,7 +163,13 @@ set viminfo='20,\"80            " read/write a .viminfo file, don't store more
 set wildmenu                    " make tab completion for files/buffers act like bash
 set wildmode=longest:full          " show a list when pressing tab and complete
                                 "    first full match
-set wildignore=*.swp,*.bak,*.pyc,*.class,*.t3o,*.t3s
+set wildignore=*.swp,*.bak
+set wildignore+=*.pyc,*.pyo
+set wildignore+=*.class
+set wildignore+=*.t3o,*.t3s
+set wildignore+=*.o,*.obj,*~
+set wildignore+=*.png,*.jpg,*.gif
+
 set title                       " change the terminal's title
 set visualbell                  " don't beep
 set noerrorbells                " don't beep
@@ -311,6 +319,11 @@ nnoremap <leader>v V`]
 
 " Gundo.vim
 nnoremap <F5> :GundoToggle<CR>
+nmap ,u :GundoToggle<CR>
+
+" open on the right so as not to compete with the nerdtree
+let g:gundo_right = 1 
+
 " }}}
 
 " NERDTree settings {{{
@@ -346,6 +359,10 @@ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
 			\ '\~$']
 
 let NERDTreeShowLineNumbers=1
+
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let g:NERDTreeWinSize = 30
 
 " }}}
 
@@ -643,7 +660,7 @@ iab lllorem Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam lacu
 
 if has("gui_running") " {{{
     "set guifont=Inconsolata:h14
-	set guifont=Consolas:h12
+	set guifont=Inconsolata\ For\ Powerline:h14,Consolas:h12
     "colorscheme baycomb
     "colorscheme mustang
     "colorscheme molokai
@@ -660,6 +677,10 @@ if has("gui_running") " {{{
     set guioptions-=L
     set guioptions-=r
     set guioptions-=R
+
+	set guicursor+=a:blinkon0
+
+	let g:Powerline_symbols = 'fancy'
 
 else
     set bg=dark
@@ -769,6 +790,11 @@ function! LineNumberToggle()
 endfunc
 
 nnoremap <silent> <C-l> :call LineNumberToggle()<cr>
+
+" }}}
+
+" powerline {{{
+" let g:Powerline_symbols = 'unicode'
 
 " }}}
 
