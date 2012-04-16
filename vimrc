@@ -161,7 +161,7 @@ set viminfo='20,\"80            " read/write a .viminfo file, don't store more
 set wildmenu                    " make tab completion for files/buffers act like bash
 set wildmode=longest:full          " show a list when pressing tab and complete
                                 "    first full match
-set wildignore=*.swp,*.bak,*.pyc,*.class
+set wildignore=*.swp,*.bak,*.pyc,*.class,*.t3o,*.t3s
 set title                       " change the terminal's title
 set visualbell                  " don't beep
 set noerrorbells                " don't beep
@@ -560,6 +560,7 @@ if has("autocmd")
         au FileType tads setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 		au FileType tads let b:delimitMate_nesting_quotes = ['"', "'"]
 		au FileType tads let b:delimitMate_expand_cr = 1
+		au FileType tads let b:MatchemEdgeCases = ['s:PythonTripleQuote']
 "
 		"}}}
 endif
