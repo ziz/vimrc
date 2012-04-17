@@ -364,6 +364,11 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
 
+" Auto open nerd tree on startup
+let g:nerdtree_tabs_open_on_gui_startup = 1
+" Focus in the main content window
+let g:nerdtree_tabs_focus_on_files = 1
+
 " }}}
 
 " TagList settings {{{
@@ -680,8 +685,6 @@ if has("gui_running") " {{{
 
 	set guicursor+=a:blinkon0
 
-	let g:Powerline_symbols = 'fancy'
-
 else
     set bg=dark
     let g:solarized_termcolors=256
@@ -790,11 +793,6 @@ function! LineNumberToggle()
 endfunc
 
 nnoremap <silent> <C-l> :call LineNumberToggle()<cr>
-
-" }}}
-
-" powerline {{{
-" let g:Powerline_symbols = 'unicode'
 
 " }}}
 
