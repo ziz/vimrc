@@ -3,7 +3,7 @@ oldcwd=$(pwd)
 
 cd "$(dirname "$0")"
 for submodule in *; do
-	if [ -d "$submodule/.git" ]; then
+	if [ -e "$submodule/.git" ]; then
 		cd "$submodule"
 		echo "--- $submodule:"
 		if [ "$submodule" = "pyunit" ]; then
