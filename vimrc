@@ -242,6 +242,7 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>s <C-w>s<C-w>j
 
 " Complete whole filenames/lines with a quicker shortcut key in insert mode
 imap <C-f> <C-x><C-f>
@@ -408,7 +409,7 @@ let Tlist_Use_Right_Window=1
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " shortcut to jump to next conflict marker
-nmap <silent> <leader>c /^\(<\\|=\\|>\)\{7\}\([^=].\+\)\?$<CR>
+nmap <silent> <leader>C /^\(<\\|=\\|>\)\{7\}\([^=].\+\)\?$<CR>
 " }}}
 
 " Filetype specific handling {{{
@@ -710,9 +711,34 @@ let g:delimitMate_expand_cr = 1
 let g:yankring_max_element_length = 65536
 " }}}
 
-" Quickly edit/reload the vimrc file {{{
+" handy keybindings {{{
+
+" Edit and source vimrc
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" Use numbers to pick the tab you want (like iTerm)
+map <silent> <D-1> :tabn 1<cr>
+map <silent> <D-2> :tabn 2<cr>
+map <silent> <D-3> :tabn 3<cr>
+map <silent> <D-4> :tabn 4<cr>
+map <silent> <D-5> :tabn 5<cr>
+map <silent> <D-6> :tabn 6<cr>
+map <silent> <D-7> :tabn 7<cr>
+map <silent> <D-8> :tabn 8<cr>
+map <silent> <D-9> :tabn 9<cr>
+
+" copy current filename into system clipboard - mnemonic: (c)urrent(f)ilename
+" this is helpful to paste someone the path you're looking at
+nnoremap <silent> ,cf :let @* = expand("%:~")<CR>
+nnoremap <silent> ,cn :let @* = expand("%:t")<CR>
+
+" Get the current highlight group. Useful for then remapping the color
+map ,hi :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+
+map ,cd :lcd %:p:h<CR>
+map ,cD :cd %:p:h<CR>
+
 " }}}
 
 " Syntastic {{{
@@ -794,6 +820,21 @@ endfunc
 
 nnoremap <silent> <C-l> :call LineNumberToggle()<cr>
 
+" }}}
+
+
+" Status line customization {{{
+set statusline=%#DiffAdd#
+set statusline+=%f
+set statusline+=%#LineNr#
+set statusline+=%m
+set statusline+=%#DiffAdd#
+set statusline+=%r
+set statusline+=%#DiffChange#
+set statusline+=%{&paste?'[paste]':''}
+set statusline+=%#LineNr#
+set statusline+=%=%{fugitive#statusline()}
+set statusline+=%y
 " }}}
 
 
