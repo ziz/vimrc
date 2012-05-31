@@ -279,8 +279,8 @@ nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 
 " Keep search matches in the middle of the window and pulse the line when moving
 " to them.
-nnoremap <silent> n n:call PulseCursorLine()<cr>
-nnoremap <silent> N N:call PulseCursorLine()<cr>
+" nnoremap <silent> n n:call PulseCursorLine()<cr>
+" nnoremap <silent> N N:call PulseCursorLine()<cr>
 
 " Quickly get out of insert mode without your fingers having to leave the
 " home row (either use 'jj' or 'jk')
@@ -625,10 +625,6 @@ endif " has("autocmd")
 
 " Restore cursor position upon reopening files {{{
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-" }}}
-
-" Common abbreviations / misspellings {{{
-source ~/.vim/autocorrect.vim
 " }}}
 
 " Extra vi-compatibility {{{

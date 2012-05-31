@@ -9,3 +9,4 @@
 /vim/.tmp/*
 /vim/.undo/*
 /vim/bundle/*/doc/tags
+/vim/bundle-disabled/
