@@ -24,6 +24,9 @@ filetype off                    " force reloading *after* pathogen loaded
 call pathogen#infect()
 filetype plugin indent on       " enable detection, plugins and indenting in one step
 
+" ramdisk creation
+" diskutil erasevolume HFS+ "ramdisk" `hdiutil attach -nomount ram://195312`
+
 " call pathogen#helptags() " Regenerate helpfiles for bundles.
 " Takes a long time, shouldn't be run at startup.
 " Instead, run this when updating: vim -c 'call pathogen#helptags()|q'
