@@ -333,7 +333,7 @@ let g:gundo_right = 1
 " NERDTree settings {{{
 " Put focus to the NERD Tree with F3 (tricked by quickly closing it and
 " immediately showing it again, since there is no :NERDTreeFocus command)
-nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
+nmap <leader>n :NERDTreeClose<CR>:NERDTreeMirrorToggle<CR>
 nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
 nmap <leader>N :NERDTreeClose<CR>
 
@@ -348,7 +348,7 @@ let NERDTreeShowFiles=1
 let NERDTreeShowHidden=1
 
 " Quit on opening files from the tree
-let NERDTreeQuitOnOpen=1
+let NERDTreeQuitOnOpen=0
 
 " Highlight the selected entry in the tree
 let NERDTreeHighlightCursorline=1
@@ -369,7 +369,7 @@ let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
 
 " Auto open nerd tree on startup
-let g:nerdtree_tabs_open_on_gui_startup = 1
+let g:nerdtree_tabs_open_on_gui_startup = 0
 " Focus in the main content window
 let g:nerdtree_tabs_focus_on_files = 1
 
@@ -549,21 +549,21 @@ if has("autocmd")
         autocmd filetype css,less setlocal foldmethod=marker foldmarker={,}
     augroup end "}}}
 
+	augroup ls "{{{
+		au!
+		autocmd filetype ls setlocal foldmethod=indent nofoldenable noexpandtab
+		autocmd filetype ls setlocal tabstop=2 softtabstop=2 shiftwidth=2
+        autocmd filetype ls setlocal formatoptions-=t
+		autocmd filetype ls vmap <buffer> <leader>C <esc>:'<,'>:LiveScriptCompile<CR>
+		autocmd filetype ls map <buffer> <leader>C :LiveScriptCompile<CR>
+		autocmd filetype ls command-buffer -nargs=1 C LiveScriptCompile | :<args>
+	augroup end "}}}
+
     augroup javascript_files "{{{
         au!
 
         autocmd filetype javascript setlocal noexpandtab
         autocmd filetype javascript setlocal foldmethod=marker foldmarker={,}
-    augroup end "}}}
-
-    augroup textile_files "{{{
-        au!
-
-        autocmd filetype textile set tw=78 wrap
-
-        " Render YAML front matter inside Textile documents as comments
-        autocmd filetype textile syntax region frontmatter start=/\%^---$/ end=/^---$/
-        autocmd filetype textile highlight link frontmatter Comment
     augroup end "}}}
 
     augroup php_files "{{{
@@ -747,7 +747,7 @@ set statusline+=%*
 let g:syntastic_enable_signs=1
 let g:syntastic_echo_current_error=1
 let g:syntastic_mode_map = { 'mode': 'passive',
-							\ 'active_filetypes' : [],
+							\ 'active_filetypes' : ['coffee'],
 							\ 'passive_filetypes': [] }
 
 " }}}
