@@ -81,8 +81,8 @@ nnoremap / /\v
 vnoremap / /\v
 
 " Speed up scrolling of the viewport slightly
-nnoremap <C-e> 2<C-e>
-nnoremap <C-y> 2<C-y>
+"nnoremap <C-e> 2<C-e>
+"nnoremap <C-y> 2<C-y>
 " }}}
 
 " Folding rules {{{
