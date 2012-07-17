@@ -57,6 +57,7 @@ set virtualedit=block             " allow the cursor to go in to "invalid" place
 set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
 set gdefault                    " search/replace "globally" (on a line) by default
+set fillchars=vert:\ 
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·,eol:¬
 
 set list                        " show invisible characters by default,
@@ -741,9 +742,6 @@ map ,cD :cd %:p:h<CR>
 " }}}
 
 " Syntastic {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 let g:syntastic_enable_signs=1
 let g:syntastic_echo_current_error=1
 let g:syntastic_mode_map = { 'mode': 'passive',
@@ -825,15 +823,23 @@ nnoremap <silent> <C-l> :call LineNumberToggle()<cr>
 " Status line customization {{{
 set statusline=%#DiffAdd#
 set statusline+=%f
+set statusline+=\ 
 set statusline+=%#LineNr#
 set statusline+=%m
 set statusline+=%#DiffAdd#
 set statusline+=%r
+set statusline+=%#LineNr#
+set statusline+=%{fugitive#statusline()}
+set statusline+=%y
 set statusline+=%#DiffChange#
 set statusline+=%{&paste?'[paste]':''}
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%#DiffAdd#
+set statusline+=\ %=
 set statusline+=%#LineNr#
-set statusline+=%=%{fugitive#statusline()}
-set statusline+=%y
+set statusline+=%-14.(%l,%c%V%)\ %P\ 
+set statusline+=%*
 " }}}
 
 
