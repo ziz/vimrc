@@ -197,6 +197,12 @@ function! QFixToggle(forced)
   endif
 endfunction
 
+"command CurrentGroup :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+"\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+"\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+command CurrentGroup :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+
 nmap <silent> <leader>; :TlistToggle<CR>
 
 " don't automatically fold php files"
@@ -584,6 +590,7 @@ if has("autocmd")
 		" Enable lint checking for PHP files
 		autocmd FileType php setlocal makeprg=php\ -l\ %
 		autocmd FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+		autocmd FileType php let b:delimitMate_excluded_regions = "Comment,String,phpStringDouble,phpHereDoc,phpStringSingle,phpComment"
 	augroup end "}}}
 
 	augroup inform_files "{{{
@@ -602,6 +609,17 @@ if has("autocmd")
 		au FileType tads let b:delimitMate_expand_cr = 1
 		au FileType tads let b:MatchemEdgeCases = ['s:PythonTripleQuote']
 "
+		"}}}
+	augroup markdown_files "{{{
+		au!
+		autocmd FileType markdown setlocal formatoptions-=tc
+
+		"}}}
+	augroup text_files "{{{
+		au!
+		autocmd FileType text setlocal formatoptions-=t
+		autocmd FileType text setlocal formatoptions-=c
+
 		"}}}
 endif
 " }}}
@@ -703,7 +721,7 @@ let g:ShowFuncScanType = "current"
 " }}}
 
 " delimitMate options {{{
-"let loaded_delimitMate = 1
+let loaded_delimitMate = 1
 let g:delimitMate_expand_cr = 1
 " }}}
 
