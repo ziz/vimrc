@@ -860,6 +860,12 @@ set statusline+=%-14.(%l,%c%V%)\ %P\
 set statusline+=%*
 " }}}
 
+" Command mode bindings {{{
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+
+"}}}
+
 
 " Extra user or machine specific settings {{{
 source ~/.vim/user.vim
