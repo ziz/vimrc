@@ -7,18 +7,8 @@ let mapleader=","
 nnoremap / /\v
 vnoremap / /\v
 
-" Speed up scrolling of the viewport slightly
-"nnoremap <C-e> 2<C-e>
-"nnoremap <C-y> 2<C-y>
-
 " Tame the quickfix window (open/close using ,f)
 nmap <silent> <leader>f :QFix<CR>
-
-
-" taglist
-nmap <silent> <leader>; :TlistToggle<CR>
-nmap <leader>l :TlistClose<CR>:TlistToggle<CR>
-nmap <leader>L :TlistClose<CR>
 
 
 " Shortcut mappings {{{

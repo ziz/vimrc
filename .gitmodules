@@ -67,9 +67,6 @@
 [submodule "vim/bundle/vim-afterimage"]
 	path = vim/bundle/vim-afterimage
 	url = https://github.com/tpope/vim-afterimage.git
-[submodule "vim/bundle/taglist"]
-	path = vim/bundle/taglist
-	url = https://github.com/vim-scripts/taglist.vim.git
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
