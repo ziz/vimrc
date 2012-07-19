@@ -575,6 +575,12 @@ let g:delimitMate_expand_cr = 1
 
 " YankRing options {{{
 let g:yankring_max_element_length = 65536
+let g:yankring_history_dir = '$HOME/.vim/.tmp'
+" }}}
+
+" Gundo options {{{
+" open on the right so as not to compete with the nerdtree
+let g:gundo_right = 1 
 " }}}
 
 " Syntastic {{{

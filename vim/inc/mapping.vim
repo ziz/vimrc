@@ -1,132 +1,137 @@
-
-" Change the mapleader from \ to ,
+" Change the mapleader from \ to , {{{
 let mapleader=","
+"}}}
 
+" always use Very magic mode for regex by default {{{
 " Thanks to Steve Losh for this liberating tip
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
 vnoremap / /\v
+"}}}
 
-" Tame the quickfix window (open/close using ,f)
+" Tame the quickfix window (open/close using ,f) {{{
 nmap <silent> <leader>f :QFix<CR>
+"}}}
 
-
-" Shortcut mappings {{{
-
-" Avoid accidental hits of <F1> while aiming for <Esc>
+" Avoid accidental hits of <F1> while aiming for <Esc> {{{
 " ...which I've never done.
 "map! <F1> <Esc>
+"}}}
 
-" Use Q for formatting the current paragraph (or visual selection)
+" Use Q for formatting the current paragraph (or visual selection) {{{
 vmap Q gq
 nmap Q gqap
+"}}}
 
-" make p in Visual mode replace the selected text with the yank register
+" make p in Visual mode replace the selected text with the yank register {{{
 vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+"}}}
 
-" Shortcut to make
+" Shortcut to make {{{
 nmap mk :make<CR>
+"}}}
 
-" Swap implementations of ` and ' jump to markers
+" Swap implementations of ` and ' jump to markers {{{
 " By default, ' jumps to the marked line, ` jumps to the marked line and
 " column, so swap them
 "nnoremap ' `
 "nnoremap ` '
+"}}}
 
-" Remap j and k to act as expected when used on long, wrapped, lines
+" Remap j and k to act as expected when used on long, wrapped, lines {{{
 "nnoremap j gj
 "nnoremap k gk
+"}}}
 
-" Easy window navigation
+" Easy window navigation {{{
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s<C-w>j
+"}}}
 
-" Complete whole filenames/lines with a quicker shortcut key in insert mode
+" Complete whole filenames/lines with a quicker shortcut key in insert mode {{{
 imap <C-f> <C-x><C-f>
 imap <C-l> <C-x><C-l>
+"}}}
 
-" Use ,d (or ,dd or ,dj or 20,dd) to delete a line without adding it to the
-" yanked stack (also, in visual mode)
+" Use ,d to delete a line without adding it to the yanked stack {{{
+" (also, in visual mode) 
+" (or ,dd or ,dj or 20,dd)
 nmap <silent> <leader>d "_d
 vmap <silent> <leader>d "_d
+"}}}
 
-" Quick yanking to the end of the line
+" Quick yanking to the end of the line {{{
 nmap Y y$
+"}}}
 
-" Yank/paste to the OS clipboard with ,y and ,p
-nmap <leader>y "+y
-nmap <leader>Y "+yy
-nmap <leader>p "+p
-nmap <leader>P "+P
+" Yank/paste to the OS clipboard with ,y and ,p {{{
+"nmap <leader>y "+y
+"nmap <leader>Y "+yy
+"nmap <leader>p "+p
+"nmap <leader>P "+P
+"}}}
 
-" YankRing stuff
-let g:yankring_history_dir = '$HOME/.vim/.tmp'
+" YankRing stuff {{{
 nmap <leader>r :YRShow<CR>
+"}}}
 
-" Edit the vimrc file
+" Edit the vimrc file {{{
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
+"}}}
 
-" Clears the search register
+" Clears the search register {{{
 nmap <silent> <leader>/ :nohlsearch<CR>
+"}}}
 
-" Pull word under cursor into LHS of a substitute (for quick search and
-" replace)
+" Pull word under cursor into LHS of a substitute  {{{
 nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
+"}}}
 
-" Keep search matches in the middle of the window and pulse the line when moving
-" to them.
-" nnoremap <silent> n n:call PulseCursorLine()<cr>
-" nnoremap <silent> N N:call PulseCursorLine()<cr>
-
-" Quickly get out of insert mode without your fingers having to leave the
-" home row (either use 'jj' or 'jk')
-"inoremap jj <Esc>
-"inoremap jk <Esc>
-
-" Quick alignment of text
+" Quick alignment of text {{{
 nmap <leader>al :left<CR>
 nmap <leader>ar :right<CR>
 nmap <leader>ac :center<CR>
+"}}}
 
-" Scratch
-nmap <leader><tab> :Sscratch<CR><C-W>x<C-J>
-
-" Sudo to write
+" Sudo to write {{{
 cmap w!! w !sudo tee % >/dev/null
+"}}}
 
-" Jump to matching pairs easily, with Tab
+" Jump to matching pairs easily, with Tab {{{
 nnoremap <Tab> %
 vnoremap <Tab> %
+"}}}
 
-" Folding
+" Folding {{{
 nnoremap <Space> za
 vnoremap <Space> za
+"}}}
 
-" Strip all trailing whitespace from a file, using ,w
+" Strip all trailing whitespace from a file, using ,w {{{
 nnoremap <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
+" }}}
 
-" Run Ack fast
-nnoremap <leader>a :Ack<Space>
+" Run Ack fast {{{
+" nnoremap <leader>a :Ack<Space>
+"}}}
 
-" Creating folds for tags in HTML
+" Creating folds for tags in HTML {{{
 "nnoremap <leader>ft Vatzf
+"}}}
 
-" Reselect text that was just pasted with ,v
+" Reselect text that was just pasted with ,v {{{
 nnoremap <leader>v V`]
+"}}}
 
-" Gundo.vim
+" Gundo.vim {{{
 nnoremap <F5> :GundoToggle<CR>
 nmap ,u :GundoToggle<CR>
-
-" open on the right so as not to compete with the nerdtree
-let g:gundo_right = 1 
-
-" }}}
+"}}}
 
 " nerdtree {{{
 " Put focus to the NERD Tree with F3 (tricked by quickly closing it and
@@ -181,20 +186,22 @@ map ,cD :cd %:p:h<CR>
 
 " }}}
 
-
 " Gitv {{{
 nmap <leader>gv :Gitv --all<cr>
 nmap <leader>gV :Gitv! --all<cr>
 vmap <leader>gV :Gitv! --all<cr>
 " }}}
 
+" line number {{{
 nnoremap <silent> <C-l> :call LineNumberToggle()<cr>
+" }}}
 
+" tagbar {{{
 nmap <F8> :TagbarToggle<CR>
+"}}}
 
 " Command mode bindings {{{
 cnoremap <c-a> <home>
 cnoremap <c-e> <end>
-
 "}}}
 
