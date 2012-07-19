@@ -82,3 +82,9 @@
 [submodule "vim/bundle/vim-ls"]
 	path = vim/bundle/vim-ls
 	url = https://github.com/gkz/vim-ls.git
+[submodule "vim/bundle/tagbar"]
+	path = vim/bundle/tagbar
+	url = git://github.com/majutsushi/tagbar.git
+[submodule "vim/bundle/tagbar-phpctags"]
+	path = vim/bundle/tagbar-phpctags
+	url = git://github.com/techlivezheng/tagbar-phpctags.git
