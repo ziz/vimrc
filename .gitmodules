@@ -85,3 +85,6 @@
 [submodule "vim/bundle/tagbar-phpctags"]
 	path = vim/bundle/tagbar-phpctags
 	url = git://github.com/techlivezheng/tagbar-phpctags.git
+[submodule "vim/bundle/git-grep-vim"]
+	path = vim/bundle/git-grep-vim
+	url = git://github.com/henrik/git-grep-vim.git
