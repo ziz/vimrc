@@ -140,7 +140,7 @@ set switchbuf=useopen           " reveal already opened files from the
 set history=1000                " remember more commands and search history
 set undolevels=1000             " use many muchos levels of undo
 
-if v:version >= '702'
+if v:version >= '702' && has('persistent_undo')
 	set undofile                " keep a persistent backup file
 	set undodir=~/.vim/.undo,~/tmp,/tmp
 endif
