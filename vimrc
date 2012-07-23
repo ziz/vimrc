@@ -298,7 +298,9 @@ if has("autocmd")
     	au!
 
     	autocmd filetype help setlocal nonumber
-    	autocmd filetype help setlocal norelativenumber
+    	if v:version >= '703'
+			autocmd filetype help setlocal norelativenumber
+		endif
     	autocmd filetype help setlocal foldcolumn=0
 	"}}}
 
@@ -640,16 +642,26 @@ endfunction
 
 " numbertoggle {{{
 
-function! LineNumberToggle()
-	if(&relativenumber == 1)
-		set nonumber
-		set norelativenumber
-	elseif (&number == 1)
-		set relativenumber
-	else
-		set number
-	endif
-endfunc
+if v:version >= '703'
+	function! LineNumberToggle()
+		if(&relativenumber == 1)
+			set nonumber
+			set norelativenumber
+		elseif (&number == 1)
+			set relativenumber
+		else
+			set number
+		endif
+	endfunc
+else
+	function! LineNumberToggle()
+		if (&number == 1)
+			set nonumber
+		else
+			set number
+		endif
+	endfunc
+endif
 
 " }}}
 
