@@ -10,7 +10,7 @@ vnoremap / /\v
 "}}}
 
 " Tame the quickfix window (open/close using ,f) {{{
-nmap <silent> <leader>f :QFix<CR>
+nnoremap <silent> <leader>f :QFix<CR>
 "}}}
 
 " Avoid accidental hits of <F1> while aiming for <Esc> {{{
@@ -19,8 +19,8 @@ nmap <silent> <leader>f :QFix<CR>
 "}}}
 
 " Use Q for formatting the current paragraph (or visual selection) {{{
-vmap Q gq
-nmap Q gqap
+vnoremap Q gq
+nnoremap Q gqap
 "}}}
 
 " make p in Visual mode replace the selected text with the yank register {{{
@@ -28,7 +28,7 @@ vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 "}}}
 
 " Shortcut to make {{{
-nmap mk :make<CR>
+nnoremap mk :make<CR>
 "}}}
 
 " Swap implementations of ` and ' jump to markers {{{
@@ -60,12 +60,12 @@ imap <C-l> <C-x><C-l>
 " Use ,d to delete a line without adding it to the yanked stack {{{
 " (also, in visual mode) 
 " (or ,dd or ,dj or 20,dd)
-nmap <silent> <leader>d "_d
-vmap <silent> <leader>d "_d
+nnoremap <silent> <leader>d "_d
+vnoremap <silent> <leader>d "_d
 "}}}
 
 " Quick yanking to the end of the line {{{
-nmap Y y$
+nnoremap Y y$
 "}}}
 
 " Yank/paste to the OS clipboard with ,y and ,p {{{
@@ -76,26 +76,26 @@ nmap Y y$
 "}}}
 
 " YankRing stuff {{{
-nmap <leader>r :YRShow<CR>
+nnoremap <leader>r :YRShow<CR>
 "}}}
 
 " Edit the vimrc file {{{
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 "}}}
 
 " Clears the search register {{{
-nmap <silent> <leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>/ :nohlsearch<CR>
 "}}}
 
 " Pull word under cursor into LHS of a substitute  {{{
-nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
+nnoremap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 "}}}
 
 " Quick alignment of text {{{
-nmap <leader>al :left<CR>
-nmap <leader>ar :right<CR>
-nmap <leader>ac :center<CR>
+nnoremap <leader>al :left<CR>
+nnoremap <leader>ar :right<CR>
+nnoremap <leader>ac :center<CR>
 "}}}
 
 " Sudo to write {{{
@@ -130,20 +130,20 @@ nnoremap <leader>v V`]
 
 " Gundo.vim {{{
 nnoremap <F5> :GundoToggle<CR>
-nmap ,u :GundoToggle<CR>
+nnoremap ,u :GundoToggle<CR>
 "}}}
 
 " nerdtree {{{
 " Put focus to the NERD Tree with F3 (tricked by quickly closing it and
 " immediately showing it again, since there is no :NERDTreeFocus command)
-nmap <leader>n :NERDTreeClose<CR>:NERDTreeMirrorToggle<CR>
-nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
-nmap <leader>N :NERDTreeClose<CR>
+nnoremap <leader>n :NERDTreeClose<CR>:NERDTreeMirrorToggle<CR>
+nnoremap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
+nnoremap <leader>N :NERDTreeClose<CR>
 
 " }}}
 
 " shortcut to jump to next conflict marker {{{
-nmap <silent> <leader>C /^\(<\\|=\\|>\)\{7\}\([^=].\+\)\?$<CR>
+nnoremap <silent> <leader>C /^\(<\\|=\\|>\)\{7\}\([^=].\+\)\?$<CR>
 " }}}
 
 " Creating underline/overline headings for markup languages {{{
@@ -159,8 +159,8 @@ nnoremap <leader>6 yypVr"
 " handy keybindings {{{
 
 " Edit and source vimrc
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Use numbers to pick the tab you want (like iTerm)
 map <silent> <D-1> :tabn 1<cr>
@@ -187,9 +187,9 @@ map ,cD :cd %:p:h<CR>
 " }}}
 
 " Gitv {{{
-nmap <leader>gv :Gitv --all<cr>
-nmap <leader>gV :Gitv! --all<cr>
-vmap <leader>gV :Gitv! --all<cr>
+nnoremap <leader>gv :Gitv --all<cr>
+nnoremap <leader>gV :Gitv! --all<cr>
+vnoremap <leader>gV :Gitv! --all<cr>
 " }}}
 
 " line number {{{
@@ -197,7 +197,7 @@ nnoremap <silent> <C-l> :call LineNumberToggle()<cr>
 " }}}
 
 " tagbar {{{
-nmap <F8> :TagbarToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
 "}}}
 
 " Command mode bindings {{{
