@@ -297,12 +297,16 @@ set statusline+=%*
 " }}}
 
 " local includes {{{
-source ~/.vim/inc/plugins.vim " Plugin settings
-source ~/.vim/inc/autocmd.vim " File autocommands
-source ~/.vim/inc/mapping.vim " Keybindings and mappings
+runtime inc/plugins.vim
+runtime inc/autocmd.vim
+runtime inc/mapping.vim
+"source ~/.vim/inc/plugins.vim " Plugin settings
+"source ~/.vim/inc/autocmd.vim " File autocommands
+"source ~/.vim/inc/mapping.vim " Keybindings and mappings
 " }}}
 
 " Extra user or machine specific settings {{{
-source ~/.vim/user.vim
+"source ~/.vim/user.vim
+runtime user.vim
 " }}}
 
