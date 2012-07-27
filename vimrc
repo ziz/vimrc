@@ -110,8 +110,7 @@ set updatecount=0				" but not for general editing
 
 set directory=~/.vim/.tmp,~/tmp,/tmp
                                 " store swap files in one of these directories
-                                "    (in case swapfile is ever turned on)
-set viminfo='20,\"80            " read/write a .viminfo file, don't store more
+set viminfo='20,<80            " read/write a .viminfo file, don't store more
                                 "    than 80 lines of registers
 set wildmenu                    " make tab completion for files/buffers act like bash
 set wildmode=longest:full          " show a list when pressing tab and complete
@@ -129,7 +128,7 @@ set noerrorbells                " don't beep
 set showcmd                     " show (partial) command in the last line of the screen
                                 "    this also shows visual selection info
 set modeline                  " enable mode lines (disabling is a security measure)
-"set ttyfast                     " always use a fast terminal
+set ttyfast                     " always use a fast terminal
 set cursorline                  " underline the current line, for quick orientation
 
 
