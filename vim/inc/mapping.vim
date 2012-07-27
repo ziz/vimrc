@@ -13,11 +13,6 @@ vnoremap / /\v
 nnoremap <silent> <leader>f :QFix<CR>
 "}}}
 
-" Avoid accidental hits of <F1> while aiming for <Esc> {{{
-" ...which I've never done.
-"map! <F1> <Esc>
-"}}}
-
 " Use Q for formatting the current paragraph (or visual selection) {{{
 vnoremap Q gq
 nnoremap Q gqap
@@ -43,11 +38,7 @@ nnoremap mk :make<CR>
 "nnoremap k gk
 "}}}
 
-" Easy window navigation {{{
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+" Easy window splitting {{{
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s<C-w>j
 "}}}
@@ -55,17 +46,6 @@ nnoremap <leader>s <C-w>s<C-w>j
 " Complete whole filenames/lines with a quicker shortcut key in insert mode {{{
 imap <C-f> <C-x><C-f>
 imap <C-l> <C-x><C-l>
-"}}}
-
-" Use ,d to delete a line without adding it to the yanked stack {{{
-" (also, in visual mode) 
-" (or ,dd or ,dj or 20,dd)
-nnoremap <silent> <leader>d "_d
-vnoremap <silent> <leader>d "_d
-"}}}
-
-" Quick yanking to the end of the line {{{
-nnoremap Y y$
 "}}}
 
 " Yank/paste to the OS clipboard with ,y and ,p {{{
@@ -93,9 +73,9 @@ nnoremap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 "}}}
 
 " Quick alignment of text {{{
-nnoremap <leader>al :left<CR>
-nnoremap <leader>ar :right<CR>
-nnoremap <leader>ac :center<CR>
+"nnoremap <leader>al :left<CR>
+"nnoremap <leader>ar :right<CR>
+"nnoremap <leader>ac :center<CR>
 "}}}
 
 " Sudo to write {{{
@@ -103,8 +83,8 @@ cmap w!! w !sudo tee % >/dev/null
 "}}}
 
 " Jump to matching pairs easily, with Tab {{{
-nnoremap <Tab> %
-vnoremap <Tab> %
+"nnoremap <Tab> %
+"vnoremap <Tab> %
 "}}}
 
 " Folding {{{
@@ -134,7 +114,7 @@ nnoremap ,u :GundoToggle<CR>
 "}}}
 
 " nerdtree {{{
-" Put focus to the NERD Tree with F3 (tricked by quickly closing it and
+" Put focus to the NERD Tree with <leader> (tricked by quickly closing it and
 " immediately showing it again, since there is no :NERDTreeFocus command)
 nnoremap <leader>n :NERDTreeClose<CR>:NERDTreeMirrorToggle<CR>
 nnoremap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
