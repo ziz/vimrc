@@ -1,3 +1,8 @@
+if exists('g:loaded_jdv_plugins')
+	finish
+endif
+let g:loaded_jdv_plugins = 1
+
 " Plugin settings {{{
 " NERDTree settings {{{
 " Store the bookmarks file

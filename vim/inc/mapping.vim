@@ -1,3 +1,8 @@
+if exists('g:loaded_jdv_mapping')
+	finish
+endif
+let g:loaded_jdv_mapping = 1
+
 " Change the mapleader from \ to , {{{
 let mapleader=","
 "}}}

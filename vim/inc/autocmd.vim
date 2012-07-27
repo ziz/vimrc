@@ -1,3 +1,8 @@
+if exists('g:loaded_jdv_autocmd')
+	finish
+endif
+let g:loaded_jdv_autocmd = 1
+
 " Filetype specific handling {{{
 " only do this part when compiled with support for autocommands
 if has("autocmd")
