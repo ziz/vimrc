@@ -1,36 +1,28 @@
-"
-" vimrc - Justin de Vesine (justin@devesine.com)
-"
-"     ./configure --with-features=BIG
-"                 --enable-pythoninterp --enable-rubyinterp
-"                 --enable-enablemultibyte --enable-gui=no --with-x --enable-cscope
-"                 --with-compiledby="Vincent Driessen <vincent@datafox.nl>"
-"                 --prefix=/usr
+" vimrc - Justin de Vesine (justin@devesine.com) {{{
 "
 " To start vim without using this .vimrc file, use:
 "     vim -u NORC
 "
 " To start vim without loading any .vimrc or plugins, use:
 "     vim -u NONE
-"
+" }}}
 
-" Use vim settings
+" Pathogen {{{
 " This must be first, because it changes other options as a side effect.
 set nocompatible
-
-" Use pathogen to easily modify the runtime path to include all plugins under
-" the ~/.vim/bundle directory
 filetype off                    " force reloading *after* pathogen loaded
 call pathogen#infect()
 filetype plugin indent on       " enable detection, plugins and indenting in one step
+" }}}
 
+" Notes {{{
 " ramdisk creation
 " diskutil erasevolume HFS+ "ramdisk" `hdiutil attach -nomount ram://195312`
 
 " call pathogen#helptags() " Regenerate helpfiles for bundles.
 " Takes a long time, shouldn't be run at startup.
 " Instead, run this when updating: vim -c 'call pathogen#helptags()|q'
-
+" }}}
 
 " Editing behaviour {{{
 set showmode                    " always show what mode we're currently editing in
@@ -83,43 +75,10 @@ set foldmethod=marker           " detect triple-{ style fold markers
 set foldlevelstart=99           " start out with nothing folded
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
                                 " which commands trigger auto-unfold
-function! MyFoldText()
-    let line = getline(v:foldstart)
 
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
-
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
-    return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
-endfunction
 set foldtext=MyFoldText()
-
-" Inform folding function {{{
-function! MyInformFoldText()
-    let line = getline(v:foldstart + 1)
-
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
-
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
-    return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
-endfunction
 " }}}
 	
-" }}}
-
 " Editor layout {{{
 set termencoding=utf-8
 set encoding=utf-8
@@ -196,16 +155,126 @@ command CurrentGroup :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
 
 " }}}
 
-" Highlighting {{{
-"if &t_Co >= 256 || has("gui_running")
-"   colorscheme molokai
-"endif
+" Extra vi-compatibility {{{
+" set extra vi-compatible options
+set cpoptions+=$     " when changing a line, don't redisplay, but put a '$' at
+                     " the end during the change
+set formatoptions-=o " don't start new lines w/ comment leader on pressing 'o'
+if has("autocmd")
+	au filetype vim set formatoptions-=o
+                     " somehow, during vim filetype detection, this gets set
+                     " for vim files, so explicitly unset it again
+endif
+" }}}
 
+" Enabling syntax highlighting {{{
 if &t_Co > 2 || has("gui_running")
    syntax on                    " switch syntax highlighting on, when the terminal has colors
 endif
 " }}}
 
+" Highlight conflict markers {{{
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" }}}
+
+" function: numbertoggle {{{
+
+if v:version >= '703'
+	function! LineNumberToggle()
+		if(&relativenumber == 1)
+			set nonumber
+			set norelativenumber
+		elseif (&number == 1)
+			set relativenumber
+		else
+			set number
+		endif
+	endfunc
+else
+	function! LineNumberToggle()
+		if (&number == 1)
+			set nonumber
+		else
+			set number
+		endif
+	endfunc
+endif
+
+" }}}
+
+" function: MyFoldText and variants {{{
+function! MyFoldText()
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
+    return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
+endfunction
+
+" Inform folding function {{{
+function! MyInformFoldText()
+    let line = getline(v:foldstart + 1)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
+    return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
+endfunction
+" }}}
+" }}}
+
+" GUI options and color scheme {{{
+if has("gui_running") "
+    "set guifont=Inconsolata:h14
+	set guifont=Inconsolata\ For\ Powerline:h14,Consolas:h12
+    "colorscheme baycomb
+    "colorscheme mustang
+    "colorscheme molokai
+    set bg=dark
+    let g:solarized_termcolors=256
+    let g:solarized_bold = 1
+    let g:solarized_underline = 1
+    let g:solarized_italic = 1
+    colorscheme solarized
+
+    " Remove toolbar, left scrollbar and right scrollbar
+    set guioptions-=T
+    set guioptions-=l
+    set guioptions-=L
+    set guioptions-=r
+    set guioptions-=R
+
+	set guicursor+=a:blinkon0
+
+else
+    set bg=dark
+    let g:solarized_termcolors=256
+    colorscheme solarized
+endif " }}}
+
+" Abbreviations: Lorem Ipsum {{{
+iab lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit
+iab llorem Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam lacus ligula, accumsan id imperdiet rhoncus, dapibus vitae arcu.  Nulla non quam erat, luctus consequat nisi
+iab lllorem Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam lacus ligula, accumsan id imperdiet rhoncus, dapibus vitae arcu.  Nulla non quam erat, luctus consequat nisi.  Integer hendrerit lacus sagittis erat fermentum tincidunt.  Cras vel dui neque.  In sagittis commodo luctus.  Mauris non metus dolor, ut suscipit dui.  Aliquam mauris lacus, laoreet et consequat quis, bibendum id ipsum.  Donec gravida, diam id imperdiet cursus, nunc nisl bibendum sapien, eget tempor neque elit in tortor
+" }}}
+
+" Plugin settings {{{
 " NERDTree settings {{{
 " Store the bookmarks file
 let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
@@ -274,254 +343,6 @@ let Tlist_Use_Right_Window=1
 
 " }}}
 
-" Conflict markers {{{
-" highlight conflict markers
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-
-" }}}
-
-" Filetype specific handling {{{
-" only do this part when compiled with support for autocommands
-if has("autocmd")
-    augroup invisible_chars "{{{
-        au!
-
-        " Show invisible characters in all of these files
-        autocmd filetype vim setlocal list
-        autocmd filetype php setlocal list
-        autocmd filetype python,rst setlocal list
-        autocmd filetype ruby setlocal list
-        autocmd filetype javascript,css setlocal list
-    augroup end "}}}
-
-    augroup vim_help "{{{
-    	au!
-
-    	autocmd filetype help setlocal nonumber
-    	if v:version >= '703'
-			autocmd filetype help setlocal norelativenumber
-		endif
-    	autocmd filetype help setlocal foldcolumn=0
-	"}}}
-
-    augroup vim_files "{{{
-        au!
-
-        " Bind <F1> to show the keyword under cursor
-        " general help can still be entered manually, with :h
-        autocmd filetype vim noremap <buffer> <F1> <Esc>:help <C-r><C-w><CR>
-        autocmd filetype vim noremap! <buffer> <F1> <Esc>:help <C-r><C-w><CR>
-    augroup end "}}}
-
-    augroup html_files "{{{
-        au!
-
-        " This function detects, based on HTML content, whether this is a
-        " Django template, or a plain HTML file, and sets filetype accordingly
-        fun! s:DetectHTMLVariant()
-            let n = 1
-            while n < 50 && n < line("$")
-                " check for django
-                if getline(n) =~ '{%\s*\(extends\|load\|block\|if\|for\|include\|trans\)\>'
-                    set ft=htmldjango.html
-                    return
-                endif
-                let n = n + 1
-            endwhile
-            " go with html
-            set ft=html
-        endfun
-
-        "autocmd BufNewFile,BufRead *.html,*.htm call s:DetectHTMLVariant()
-
-        autocmd BufNewFile,BufRead *.html,*.htm,*.tmpl set ft=html
-
-        " Auto-closing of HTML/XML tags
-        let g:closetag_default_xml=1
-		" autocmd filetype html let b:closetag_html_style=1
-        autocmd filetype html,xhtml,xml setlocal formatoptions-=tc
-        autocmd filetype html,xhtml,xml setlocal wrap
-        autocmd filetype html,xhtml,xml source ~/.vim/scripts/closetag.vim
-        " local syntax overrides for html in text/html script tags
-        autocmd filetype html,php syn clear javaScript
-		autocmd filetype html,php syn region  javaScript start=+<script\(>\|\([^>]\(type *=[^>]*html\)\@!\)*\)>+ keepend end=+</script>+me=s-1 contains=@htmlJavaScript,htmlCssStyleComment,htmlScriptTag,@htmlPreproc
-		autocmd filetype html,php syn region  htmlScriptRegion start=+<script [^>]*type *=[^>]*html[^>]*>+ keepend end=+</script>+me=s-1 contains=@htmlTop
-		autocmd filetype html,php syn sync match htmlHighlight groupthere javaScript "<script \([^>]\(type *=[^>]*html\)\@!\)*>"
-		autocmd filetype html,php syn sync match htmlHighlight groupthere htmlScriptRegion "<script [^>]*type *=[^>]*html"
-
-    augroup end " }}}
-
-    augroup python_files "{{{
-        au!
-
-        " This function detects, based on Python content, whether this is a
-        " Django file, which may enabling snippet completion for it
-        fun! s:DetectPythonVariant()
-            let n = 1
-            while n < 50 && n < line("$")
-                " check for django
-                if getline(n) =~ 'import\s\+\<django\>' || getline(n) =~ 'from\s\+\<django\>\s\+import'
-                    set ft=python.django
-                    "set syntax=python
-                    return
-                endif
-                let n = n + 1
-            endwhile
-            " go with html
-            set ft=python
-        endfun
-        autocmd BufNewFile,BufRead *.py call s:DetectPythonVariant()
-
-        " PEP8 compliance (set 1 tab = 4 chars explicitly, even if set
-        " earlier, as it is important)
-        autocmd filetype python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-		" autocmd filetype python setlocal textwidth=80
-        autocmd filetype python match ErrorMsg '\%>80v.\+'
-
-        " But disable autowrapping as it is super annoying
-        autocmd filetype python setlocal formatoptions-=t
-
-        " Folding for Python (uses syntax/python.vim for fold definitions)
-        "autocmd filetype python,rst setlocal nofoldenable
-        "autocmd filetype python setlocal foldmethod=expr
-
-        " Python runners
-        autocmd filetype python map <buffer> <F5> :w<CR>:!python %<CR>
-        autocmd filetype python imap <buffer> <F5> <Esc>:w<CR>:!python %<CR>
-        autocmd filetype python map <buffer> <S-F5> :w<CR>:!ipython %<CR>
-        autocmd filetype python imap <buffer> <S-F5> <Esc>:w<CR>:!ipython %<CR>
-
-        " Run a quick static syntax check every time we save a Python file
-		"autocmd BufWritePost *.py call Pyflakes()
-    augroup end " }}}
-
-    augroup ruby_files "{{{
-        au!
-
-        autocmd filetype ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-    augroup end " }}}
-
-    augroup rst_files "{{{
-        au!
-
-        " Auto-wrap text around 74 chars
-        autocmd filetype rst setlocal textwidth=74
-        autocmd filetype rst setlocal formatoptions+=nqt
-        autocmd filetype rst match ErrorMsg '\%>74v.\+'
-    augroup end " }}}
-
-    augroup css_files "{{{
-        au!
-
-        autocmd filetype css,less setlocal foldmethod=marker foldmarker={,}
-    augroup end "}}}
-
-	augroup ls "{{{
-		au!
-		autocmd filetype ls setlocal foldmethod=indent nofoldenable noexpandtab
-		autocmd filetype ls setlocal tabstop=2 softtabstop=2 shiftwidth=2
-        autocmd filetype ls setlocal formatoptions-=t
-		autocmd filetype ls vmap <buffer> <leader>C <esc>:'<,'>:LiveScriptCompile<CR>
-		autocmd filetype ls map <buffer> <leader>C :LiveScriptCompile<CR>
-		autocmd filetype ls command-buffer -nargs=1 C LiveScriptCompile | :<args>
-	augroup end "}}}
-
-    augroup javascript_files "{{{
-        au!
-
-        autocmd filetype javascript setlocal noexpandtab
-        autocmd filetype javascript setlocal foldmethod=marker foldmarker={,}
-    augroup end "}}}
-
-    augroup php_files "{{{
-		au!
-		
-		au BufReadPre php let php_sql_query=1
-		au BufReadPre php let php_htmlInStrings=1
-		au BufReadPre php let php_folding=1
-		au BufReadPre php let php_sql_query=1
-
-		autocmd FileType php setlocal noexpandtab
-		autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-		autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-		autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-		autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-
-		" Enable lint checking for PHP files
-		autocmd FileType php setlocal makeprg=php\ -l\ %
-		autocmd FileType php setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-		autocmd FileType php let b:delimitMate_excluded_regions = "Comment,String,phpStringDouble,phpHereDoc,phpStringSingle,phpComment"
-	augroup end "}}}
-
-	augroup inform_files "{{{
-		au!
-		au BufNewFile,BufRead *.ni      setf inform7
-		autocmd FileType inform7 setlocal foldtext=MyInformFoldText()
-		autocmd FileType inform7 setlocal wrap
-"
-		"}}}
-		
-	augroup tads_files "{{{
-		au!
-		au BufNewFile,BufRead *.t      setf tads
-        au FileType tads setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-		au FileType tads let b:delimitMate_nesting_quotes = ['"', "'"]
-		au FileType tads let b:delimitMate_expand_cr = 1
-		au FileType tads let b:MatchemEdgeCases = ['s:PythonTripleQuote']
-"
-		"}}}
-	augroup markdown_files "{{{
-		au!
-		autocmd FileType markdown setlocal formatoptions-=tc
-
-		"}}}
-	augroup text_files "{{{
-		au!
-		autocmd FileType text setlocal formatoptions-=t
-		autocmd FileType text setlocal formatoptions-=c
-
-		"}}}
-endif
-" }}}
-
-" Skeleton processing {{{
-
-if has("autocmd")
-
-    "if !exists('*LoadTemplate')
-    "function LoadTemplate(file)
-        "" Add skeleton fillings for Python (normal and unittest) files
-        "if a:file =~ 'test_.*\.py$'
-            "execute "0r ~/.vim/skeleton/test_template.py"
-        "elseif a:file =~ '.*\.py$'
-            "execute "0r ~/.vim/skeleton/template.py"
-        "endif
-    "endfunction
-    "endif
-
-    "autocmd BufNewFile * call LoadTemplate(@%)
-
-endif " has("autocmd")
-
-" }}}
-
-" Restore cursor position upon reopening files {{{
-autocmd BufReadPost * 
-	\ if line("'\"") > 1 && line("'\"") <= line("$") |
-	\   exe "normal! g`\"" |
-	\ endif
-" }}}
-
-" Extra vi-compatibility {{{
-" set extra vi-compatible options
-set cpoptions+=$     " when changing a line, don't redisplay, but put a '$' at
-                     " the end during the change
-set formatoptions-=o " don't start new lines w/ comment leader on pressing 'o'
-au filetype vim set formatoptions-=o
-                     " somehow, during vim filetype detection, this gets set
-                     " for vim files, so explicitly unset it again
-" }}}
-
 " ZenCoding settings {{{
 
 let g:user_zen_expandabbr_key = '<c-e>'
@@ -529,154 +350,53 @@ let g:use_zen_complete_tag = 1
 
 " }}}
 
-" Lorem Ipsum {{{
-iab lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit
-iab llorem Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam lacus ligula, accumsan id imperdiet rhoncus, dapibus vitae arcu.  Nulla non quam erat, luctus consequat nisi
-iab lllorem Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam lacus ligula, accumsan id imperdiet rhoncus, dapibus vitae arcu.  Nulla non quam erat, luctus consequat nisi.  Integer hendrerit lacus sagittis erat fermentum tincidunt.  Cras vel dui neque.  In sagittis commodo luctus.  Mauris non metus dolor, ut suscipit dui.  Aliquam mauris lacus, laoreet et consequat quis, bibendum id ipsum.  Donec gravida, diam id imperdiet cursus, nunc nisl bibendum sapien, eget tempor neque elit in tortor
-" }}}
-
-if has("gui_running") " {{{
-    "set guifont=Inconsolata:h14
-	set guifont=Inconsolata\ For\ Powerline:h14,Consolas:h12
-    "colorscheme baycomb
-    "colorscheme mustang
-    "colorscheme molokai
-    set bg=dark
-    let g:solarized_termcolors=256
-    let g:solarized_bold = 1
-    let g:solarized_underline = 1
-    let g:solarized_italic = 1
-    colorscheme solarized
-
-    " Remove toolbar, left scrollbar and right scrollbar
-    set guioptions-=T
-    set guioptions-=l
-    set guioptions-=L
-    set guioptions-=r
-    set guioptions-=R
-
-	set guicursor+=a:blinkon0
-
-else
-    set bg=dark
-    let g:solarized_termcolors=256
-    colorscheme solarized
-endif " }}}
-
-" SuperTab options {{{
+" SuperTab settings {{{
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-p>"
 let g:SuperTabCrMapping = 0
 " }}}
  
-" ShowFunc options {{{
+" ShowFunc settings {{{
 let g:ShowFuncScanType = "current"
 " }}}
 
-" delimitMate options {{{
+" delimitMate settings {{{
 let loaded_delimitMate = 1
 let g:delimitMate_expand_cr = 1
 " }}}
 
-" YankRing options {{{
+" YankRing settings {{{
 let g:yankring_max_element_length = 65536
 let g:yankring_history_dir = '$HOME/.vim/.tmp'
 " }}}
 
-" Gundo options {{{
+" Gundo settings {{{
 " open on the right so as not to compete with the nerdtree
 let g:gundo_right = 1 
 " }}}
 
-" Syntastic {{{
+" Syntastic settings {{{
 let g:syntastic_enable_signs=1
 let g:syntastic_echo_current_error=1
 let g:syntastic_mode_map = { 'mode': 'passive',
-							\ 'active_filetypes' : ['coffee'],
+							\ 'active_filetypes' : [],
 							\ 'passive_filetypes': [] }
 
 " }}}
 
-
-
-" Pulse ------------------------------------------------------------------- {{{
-
-function! PulseCursorLine()
-    let current_window = winnr()
-
-    windo set nocursorline
-    execute current_window . 'wincmd w'
-
-    setlocal cursorline
-
-    redir => old_hi
-        silent execute 'hi CursorLine'
-    redir END
-    let old_hi = split(old_hi, '\n')[0]
-    let old_hi = substitute(old_hi, 'xxx', '', '')
-
-    "hi CursorLine guibg=#2a2a2a
-    "redraw
-    "sleep 5m
-
-    hi CursorLine guibg=#3a3a3a
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#4a4a4a
-    redraw
-    sleep 30m
-
-    hi CursorLine guibg=#3a3a3a
-    redraw
-    sleep 30m
-
-    hi CursorLine guibg=#2a2a2a
-    redraw
-    sleep 20m
-
-    execute 'hi ' . old_hi
-
-    windo set cursorline
-    execute current_window . 'wincmd w'
-endfunction
-
-" }}}
-
-" numbertoggle {{{
-
-if v:version >= '703'
-	function! LineNumberToggle()
-		if(&relativenumber == 1)
-			set nonumber
-			set norelativenumber
-		elseif (&number == 1)
-			set relativenumber
-		else
-			set number
-		endif
-	endfunc
-else
-	function! LineNumberToggle()
-		if (&number == 1)
-			set nonumber
-		else
-			set number
-		endif
-	endfunc
+" tagbar settings {{{
+if filereadable('/usr/local/Cellar/ctags/5.8/bin/ctags')
+	let g:tagbar_ctags_bin = '/usr/local/Cellar/ctags/5.8/bin/ctags'
 endif
-
-" }}}
-
-" tagbar {{{
-let g:tagbar_ctags_bin = '/usr/local/Cellar/ctags/5.8/bin/ctags'
-let g:tagbar_type_javascript = {
-			\ 'ctagsbin' : '/usr/local/bin/jsctags'
-			\ }
+if filereadable('/usr/local/bin/jsctags')
+	let g:tagbar_type_javascript = {
+				\ 'ctagsbin' : '/usr/local/bin/jsctags'
+				\ }
+endif
 let g:tagbar_compact = 1
 
 " }}}
-
+" }}}
 
 " Status line customization {{{
 set statusline=%#DiffAdd#
@@ -700,8 +420,8 @@ set statusline+=%-14.(%l,%c%V%)\ %P\
 set statusline+=%*
 " }}}
 
-
-" keybindings {{{
+" local includes {{{
+source ~/.vim/inc/autocmd.vim
 source ~/.vim/inc/mapping.vim
 " }}}
 
