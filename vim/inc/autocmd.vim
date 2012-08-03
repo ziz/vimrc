@@ -121,6 +121,7 @@ if has("autocmd")
     augroup ruby_files "{{{
         au!
 
+		au BufNewFile,BufRead Capfile      setf ruby
         autocmd filetype ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     augroup end " }}}
 
