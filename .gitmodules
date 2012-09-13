@@ -97,3 +97,12 @@
 [submodule "vim/bundle/php-indenting"]
 	path = vim/bundle/php-indenting
 	url = git://github.com/2072/PHP-Indenting-for-VIm.git
+[submodule "vim/bundle/vim-phpqa"]
+	path = vim/bundle/vim-phpqa
+	url = git://github.com/joonty/vim-phpqa.git
+[submodule "vim/bundle/vim-coffee-script"]
+	path = vim/bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script.git
+[submodule "vim/bundle/coffeescript-snippets"]
+	path = vim/bundle/coffeescript-snippets
+	url = https://github.com/carlosvillu/coffeScript-VIM-Snippets.git
