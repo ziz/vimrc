@@ -1,5 +1,6 @@
 #!/bin/sh
-INSTALL_TO=~/Projects
+cd $(dirname $0)
+INSTALL_TO=$(dirname $(pwd))
 
 warn() {
     echo "$1" >&2
@@ -10,20 +11,18 @@ die() {
     exit 1
 }
 
-[ -e "$INSTALL_TO/vimrc" ] && die "$INSTALL_TO/vimrc already exists."
+#[ -e "$INSTALL_TO/vimrc" ] && die "$INSTALL_TO/vimrc already exists."
 [ -e "~/.vim" ] && die "~/.vim already exists."
 [ -e "~/.vimrc" ] && die "~/.vimrc already exists."
 
 cd "$INSTALL_TO"
-git clone git://github.com/nvie/vimrc.git
 cd vimrc
 
 # Download vim plugin bundles
-git submodule init
-git submodule update
+git submodule update --init --recursive
 
 # Compile command-t for the current platform
-cd vim/ruby/command-t
+cd vim/bundle/command-t/ruby/command-t
 (ruby extconf.rb && make clean && make) || warn "Ruby compilation failed. Ruby not installed, maybe?"
 
 # Symlink ~/.vim and ~/.vimrc
