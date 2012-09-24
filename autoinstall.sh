@@ -18,6 +18,7 @@ die() {
 cd "$INSTALL_TO"
 cd vimrc
 
+git pull
 # Download vim plugin bundles
 git submodule update --init --recursive
 
@@ -26,9 +27,19 @@ cd vim/bundle/command-t/ruby/command-t
 (ruby extconf.rb && make clean && make) || warn "Ruby compilation failed. Ruby not installed, maybe?"
 
 # Symlink ~/.vim and ~/.vimrc
-cd ~
-ln -s "$INSTALL_TO/vimrc/vimrc" .vimrc
-ln -s "$INSTALL_TO/vimrc/vim" .vim
-touch ~/.vim/user.vim
+(
+	cd ~
+	ln -ns "$INSTALL_TO/vimrc/vimrc" .vimrc
+	ln -ns "$INSTALL_TO/vimrc/vim" .vim
+	touch ~/.vim/user.vim
+)
+
+if [ -f /usr/local/bin/mvim -a ! -f /usr/local/bin/vim ]; then
+	(
+	echo "linking vim to mvim"
+	cd /usr/local/bin
+	ln -nsf mvim vim
+	)
+fi
 
 echo "Installed and configured .vim, have fun."
