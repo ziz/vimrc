@@ -125,5 +125,11 @@ endif
 let g:tagbar_compact = 1
 
 " }}}
+
+" phpqa settings {{{
+let g:phpqa_messdetector_autorun = 0
+let g:phpqa_codesniffer_autorun = 0
+
+" }}}
 " }}}
 
