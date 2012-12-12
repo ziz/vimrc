@@ -54,11 +54,36 @@ syn region i7i6 start=/(-/ end=/-)/
 syn region i7Substitution start=/\[/ end=/\]/ contained 
 syn region i7String start=+"+ skip=+\\\\+ end=+"+ contains=i7Substitution
 
-syn region i7VolumeFold start = /\n^[vV]olume\s/ end=/\ze\n^[vV]olume/ fold transparent contains=ALL keepend
-syn region i7BookFold start = /\n^[bB]ook\s/ end=/\ze\n^[bB]ook/ fold transparent contains=ALLBUT,i7VolumeFold keepend
-syn region i7PartFold start = /\n^[pP]art\s/ end=/\ze\n^[pP]art/ fold transparent contains=ALLBUT,i7VolumeFold,i7BookFold  keepend
-syn region i7ChapterFold start = /\n^[cC]hapter\s/ end=/\ze\n^[cC]hapter/ fold transparent contains=ALLBUT,i7VolumeFold,i7BookFold,i7PartFold keepend 
-syn region i7SectionFold start = /\n^[sS]ection\s/ end=/\ze\n^[sS]ection/ fold transparent contains=ALLBUT,i7VolumeFold,i7BookFold,i7PartFold,i7ChapterFold keepend
+syn region i7VolumeFold 
+    \ start = /\n^[vV]olume\s/
+    \ end=/\ze\n^[vV]olume/
+    \ fold transparent contains=ALL keepend
+syn region i7BookFold 
+    \ start = /\n^[bB]ook\s/ 
+    \ end=/\ze\n^[bB]ook/ 
+    \ end=/\ze\n^[vV]olume/
+    \ fold transparent contains=ALLBUT,i7VolumeFold keepend
+syn region i7PartFold 
+    \ start = /\n^[pP]art\s/
+    \ end=/\ze\n^[pP]art/
+    \ end=/\ze\n^[bB]ook/ 
+    \ end=/\ze\n^[vV]olume/
+    \ fold transparent contains=ALLBUT,i7VolumeFold,i7BookFold  keepend
+syn region i7ChapterFold 
+    \ start = /\n^[cC]hapter\s/
+    \ end=/\ze\n^[cC]hapter/
+    \ end=/\ze\n^[pP]art/
+    \ end=/\ze\n^[bB]ook/ 
+    \ end=/\ze\n^[vV]olume/
+    \ fold transparent contains=ALLBUT,i7VolumeFold,i7BookFold,i7PartFold keepend 
+syn region i7SectionFold 
+    \ start = /\n^[sS]ection\s/
+    \ end=/\ze\n^[sS]ection/
+    \ end=/\ze\n^[cC]hapter/
+    \ end=/\ze\n^[pP]art/
+    \ end=/\ze\n^[bB]ook/ 
+    \ end=/\ze\n^[vV]olume/
+    \ fold transparent contains=ALLBUT,i7VolumeFold,i7BookFold,i7PartFold,i7ChapterFold keepend
 
 
 syn match i7Punctuation /[,.;:]/
