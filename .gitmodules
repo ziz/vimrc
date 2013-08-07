@@ -109,3 +109,6 @@
 [submodule "vim/bundle/ultisnips"]
 	path = vim/bundle/ultisnips
 	url = https://github.com/MarcWeber/ultisnips.git
+[submodule "vim/bundle/phpcomplete"]
+	path = vim/bundle/phpcomplete
+	url = git@github.com:shawncplus/phpcomplete.vim.git
