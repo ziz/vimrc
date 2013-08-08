@@ -38,14 +38,15 @@ endfunction
 let php_sql_query=1 " to highlight SQL syntax in strings
 let php_htmlInStrings=1 " to highlight HTML in string
 let php_noShortTags = 1 " to disable short tags 
-let php_folding = 1  "to enable folding for classes and functions
+let php_folding = 0 "to enable folding for classes and functions
 let PHP_autoformatcomment = 1
 let php_sync_method = -1
+"finish
 
 " Section: variable init calls {{{2
-call s:InitVariable("g:load_doxygen_syntax", 1)
-call s:InitVariable("g:syntax_extra_php", 'doxygen')
-call s:InitVariable("g:syntax_extra_inc", 'doxygen')
+call s:InitVariable("g:load_doxygen_syntax", 0)
+"call s:InitVariable("g:syntax_extra_php", 'doxygen')
+"call s:InitVariable("g:syntax_extra_inc", 'doxygen')
 call s:InitVariable("g:PIVCreateDefaultMappings", 1)
 call s:InitVariable("g:PIVPearStyle", 0)
 call s:InitVariable("g:PIVAutoClose", 0)
