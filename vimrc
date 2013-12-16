@@ -110,7 +110,7 @@ set updatecount=0				" but not for general editing
 
 set directory=~/.vim/.tmp,~/tmp,/tmp
                                 " store swap files in one of these directories
-set viminfo='20,<80            " read/write a .viminfo file, don't store more
+set viminfo='20,<50,s2,h            " read/write a .viminfo file, don't store more
                                 "    than 80 lines of registers
 set wildmenu                    " make tab completion for files/buffers act like bash
 set wildmode=longest:full          " show a list when pressing tab and complete
@@ -121,6 +121,10 @@ set wildignore+=*.class
 set wildignore+=*.t3o,*.t3s
 set wildignore+=*.o,*.obj,*~
 set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=*.swf,*.zip
+set wildignore+=**/kohana/**
+set wildignore+=wp/**,wp-admin/**,wp-includes/**
+set wildignore=.git/**,.svn/**
 
 set title                       " change the terminal's title
 set visualbell                  " don't beep
