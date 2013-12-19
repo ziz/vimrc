@@ -102,7 +102,7 @@
 	url = https://github.com/honza/vim-snippets.git
 [submodule "vim/bundle/ultisnips"]
 	path = vim/bundle/ultisnips
-	url = https://github.com/MarcWeber/ultisnips.git
+	url = https://github.com/SirVer/ultisnips.git
 [submodule "vim/bundle/phpcomplete"]
 	path = vim/bundle/phpcomplete
 	url = git@github.com:shawncplus/phpcomplete.vim.git
