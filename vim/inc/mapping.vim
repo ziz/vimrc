@@ -53,6 +53,10 @@ imap <C-f> <C-x><C-f>
 imap <C-l> <C-x><C-l>
 "}}}
 
+" Insert a UUID in insert mode {{{
+inoremap <F6> <C-R>=system("uuidgen")[0:-2]<CR>
+"}}}
+
 " Yank/paste to the OS clipboard with ,y and ,p {{{
 "nmap <leader>y "+y
 "nmap <leader>Y "+yy
