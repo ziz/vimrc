@@ -1,0 +1,252 @@
+snippet Achievement "Achievement +points? ''desc''"
+Achievement ${1:+points?} ${2:"desc"}
+$0
+endsnippet
+
+snippet StyleTag "StyleTag 'tagName' 'openText'? 'closeText'?"
+StyleTag ${1:'tagName'} ${2:'openText'?} ${3:'closeText'?}
+$0
+endsnippet
+
+snippet Thing "Thing 'vocab' @location? ''desc''?"
+Thing ${1:'vocab'} ${2:@location?} ${3:"desc"?}
+$0
+endsnippet
+
+snippet Topic "Topic 'vocab' @familiar?"
+Topic ${1:'vocab'} ${2:@familiar?}
+$0
+endsnippet
+
+snippet Room "Room 'roomTitle' 'vocab' ''desc''?"
+Room ${1:'roomTitle'} ${2:'vocab'} ${3:"desc"?}
+$0
+endsnippet
+
+snippet Room "Room 'roomTitle' ''desc''?"
+Room ${1:'roomTitle'} ${2:"desc"?}
+$0
+endsnippet
+
+snippet Region "Region [rooms]"
+Region ${1:[rooms]}
+$0
+endsnippet
+
+snippet Door "Door 'vocab' @location? ''desc''? ->otherSide"
+Door ${1:'vocab'} ${2:@location?} ${3:"desc"?} ${4:->otherSide}
+$0
+endsnippet
+
+snippet Door "Door ->otherSide 'vocab' @location? ''desc''?"
+Door ${1:->otherSide} ${2:'vocab'} ${3:@location?} ${4:"desc"?}
+$0
+endsnippet
+
+snippet TravelConnector "TravelConnector 'vocab'? @location? ''desc''? ->destination"
+TravelConnector ${1:'vocab'?} ${2:@location?} ${3:"desc"?} ${4:->destination}
+$0
+endsnippet
+
+snippet Enterable "Enterable inherited ->connector"
+Enterable ${1:inherited} ${2:->connector}
+$0
+endsnippet
+
+snippet Enterable "Enterable ->connector inherited"
+Enterable ${1:->connector} ${2:inherited}
+$0
+endsnippet
+
+snippet Unthing "Unthing 'vocab' @location? 'notHereMsg'?"
+Unthing ${1:'vocab'} ${2:@location?} ${3:'notHereMsg'?}
+$0
+endsnippet
+
+snippet TopicGroup "TopicGroup +boostScore? 'convKeys' | [convKeys] ? "
+TopicGroup ${1:+boostScore?} ${2:'convKeys' | [convKeys] ? }
+$0
+endsnippet
+
+snippet TopicEntry "TopicEntry +matchScore? @matchObj | [matchObj] | 'matchPattern' ''topicResponse'' | [eventList] ?"
+TopicEntry 
+   ${1:+matchScore?}
+   ${2:@matchObj | [matchObj] | 'matchPattern'}
+   ${3:"topicResponse" | [eventList] ?}
+$0
+endsnippet
+
+snippet TopicEntry "TopicEntry +matchScore? @matchObj | [matchObj] | 'matchPattern' [firstEvents] [eventList]"
+TopicEntry 
+   ${1:+matchScore?}
+   ${2:@matchObj | [matchObj] | 'matchPattern'}
+   ${3:[firstEvents]} ${4:[eventList]}
+$0
+endsnippet
+
+snippet TopicEntry "TopicEntry +matchScore? @matchObj | [matchObj] 'matchPattern' ''topicResponse'' | [eventList] ?"
+TopicEntry 
+   ${1:+matchScore?}
+   ${2:@matchObj | [matchObj]}
+   ${3:'matchPattern'}
+   ${4:"topicResponse" | [eventList] ?}
+$0
+endsnippet
+
+snippet TopicEntry "TopicEntry +matchScore? @matchObj | [matchObj] 'matchPattern' [firstEvents] [eventList]"
+TopicEntry 
+   ${1:+matchScore?}
+   ${2:@matchObj | [matchObj]}
+   ${3:'matchPattern'}
+   ${4:[firstEvents]} ${5:[eventList]}
+$0
+endsnippet
+
+snippet QueryTopic "QueryTopic +matchScore? 'matchPattern' ''topicResponse'' | [eventList] ?"
+QueryTopic 
+   ${1:+matchScore?} ${2:'matchPattern'}
+    ${3:"topicResponse" | [eventList] ?}
+$0
+endsnippet
+
+snippet QueryTopic "QueryTopic +matchScore? 'matchPattern' [firstEvents] [eventList]"
+QueryTopic 
+    ${1:+matchScore?} ${2:'matchPattern'}
+    ${3:[firstEvents]} ${4:[eventList]}
+$0
+endsnippet
+
+snippet QueryTopic "QueryTopic +matchScore? 'qtype' @matchObj | [matchObj] | 'matchPattern' ''topicResponse'' | [eventList] ?"
+QueryTopic 
+   ${1:+matchScore?} ${2:'qtype'}
+   ${3:@matchObj | [matchObj] | 'matchPattern'}
+   ${4:"topicResponse" | [eventList] ?}
+$0
+endsnippet
+
+snippet QueryTopic "QueryTopic +matchScore? 'qtype' @matchObj | [matchObj] | 'matchPattern' [firstEvents] [eventList]"
+QueryTopic 
+   ${1:+matchScore?} ${2:'qtype'}
+   ${3:@matchObj | [matchObj] | 'matchPattern'}
+   ${4:[firstEvents]} ${5:[eventList]}
+$0
+endsnippet
+
+snippet QueryTopic "QueryTopic +matchScore? 'qtype' @matchObj | [matchObj] 'matchPattern' ''topicResponse'' | [eventList] ?"
+QueryTopic 
+   ${1:+matchScore?} ${2:'qtype'}
+   ${3:@matchObj | [matchObj]}
+   ${4:'matchPattern'}
+   ${5:"topicResponse" | [eventList] ?}
+$0
+endsnippet
+
+snippet QueryTopic "QueryTopic +matchScore? 'qtype' @matchObj | [matchObj] 'matchPattern' [firstEvents] [eventList]"
+QueryTopic 
+   ${1:+matchScore?} ${2:'qtype'}
+   ${3:@matchObj | [matchObj]}
+   ${4:'matchPattern'}
+   ${5:[firstEvents]} ${6:[eventList]}
+$0
+endsnippet
+
+snippet DefaultTopic "DefaultTopic ''topicResponse'' | [eventList]"
+DefaultTopic ${1:"topicResponse" | [eventList]}
+$0
+endsnippet
+
+snippet DefaultConsultTopic "DefaultConsultTopic ''topicResponse'' | [eventList]"
+DefaultConsultTopic ${1:"topicResponse" | [eventList]}
+$0
+endsnippet
+
+snippet DefaultThought "DefaultThought ''topicResponse'' | [eventList]"
+DefaultThought ${1:"topicResponse" | [eventList]}
+$0
+endsnippet
+
+snippet MiscTopic "MiscTopic ''topicResponse'' | [eventList]"
+MiscTopic ${1:"topicResponse" | [eventList]}
+$0
+endsnippet
+
+snippet MiscTopic "MiscTopic [firstEvents] [eventList]"
+MiscTopic ${1:[firstEvents]} ${2:[eventList]}
+$0
+endsnippet
+
+snippet NodeContinuationTopic "NodeContinuationTopic ''topicResponse'' | [eventList]"
+NodeContinuationTopic ${1:"topicResponse" | [eventList]}
+$0
+endsnippet
+
+snippet NodeContinuationTopic "NodeContinuationTopic [firstEvents] [eventList]"
+NodeContinuationTopic ${1:[firstEvents]} ${2:[eventList]}
+$0
+endsnippet
+
+snippet AltTopic "AltTopic ''topicResponse'' | [eventList]"
+AltTopic ${1:"topicResponse" | [eventList]}
+$0
+endsnippet
+
+snippet AltTopic "AltTopic [firstEvents] [eventList]"
+AltTopic ${1:[firstEvents]} ${2:[eventList]}
+$0
+endsnippet
+
+snippet Doer "Doer 'cmd'"
+Doer ${1:'cmd'}
+$0
+endsnippet
+
+snippet Test "Test 'testName' [testList] @location? [testHolding]?"
+Test ${1:'testName'} ${2:[testList]} ${3:@location?} ${4:[testHolding]?}
+$0
+endsnippet
+
+snippet Test "Test 'testName' [testList] [testHolding]? @location?"
+Test ${1:'testName'} ${2:[testList]} ${3:[testHolding]?} ${4:@location?}
+$0
+endsnippet
+
+snippet MenuItem "MenuItem 'title' 'heading'?"
+MenuItem ${1:'title'} ${2:'heading'?}
+$0
+endsnippet
+
+snippet MenuTopicItem "MenuTopicItem 'title' 'heading'? [menuContents]"
+MenuTopicItem ${1:'title'} ${2:'heading'?} ${3:[menuContents]}
+$0
+endsnippet
+
+snippet MenuLongTopicItem "MenuLongTopicItem 'title' 'heading'? 'menuContents'"
+MenuLongTopicItem ${1:'title'} ${2:'heading'?} ${3:'menuContents'}
+$0
+endsnippet
+
+snippet Goal "Goal ->closeWhenAchieved? 'title' 'heading'? [menuContents]"
+Goal ${1:->closeWhenAchieved?} ${2:'title'} ${3:'heading'?} ${4:[menuContents]}
+$0
+endsnippet
+
+snippet Hint "Hint 'hintText' [referencedGoals]?"
+Hint ${1:'hintText'} ${2:[referencedGoals]?}
+$0
+endsnippet
+
+snippet ExtraHint "ExtraHint +hintDelay? ''hintText'' | [eventList]"
+ExtraHint ${1:+hintDelay?} ${2:"hintText" | [eventList]}
+$0
+endsnippet
+
+snippet EventList "EventList [eventList]"
+EventList ${1:[eventList]}
+$0
+endsnippet
+
+snippet ShuffledEventList "ShuffledEventList [firstEvents] [eventList]"
+ShuffledEventList ${1:[firstEvents]} ${2:[eventList]}
+$0
+endsnippet
+
