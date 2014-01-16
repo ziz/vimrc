@@ -163,7 +163,7 @@ if has("autocmd")
 		au BufReadPre php let php_sql_query=1
 		au BufReadPre php let php_htmlInStrings=1
 		au BufReadPre php let php_folding=1
-		au BufReadPre php let php_sql_query=1
+		au BufReadPre php let php_noShortTags =1
 
 		autocmd FileType php setlocal noexpandtab
 		autocmd FileType php set omnifunc=phpcomplete#CompletePHP

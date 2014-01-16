@@ -187,6 +187,7 @@ nnoremap <silent> <C-l> :call LineNumberToggle()<cr>
 
 " tagbar {{{
 nnoremap <F8> :TagbarToggle<CR>
+nnoremap <leader>t :TagbarOpenAutoClose<CR>
 "}}}
 
 " Command mode bindings {{{
