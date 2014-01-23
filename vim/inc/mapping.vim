@@ -66,6 +66,8 @@ inoremap <F6> <C-R>=system("uuidgen")[0:-2]<CR>
 
 " YankRing stuff {{{
 nnoremap <leader>r :YRShow<CR>
+let g:yankring_replace_n_pkey = '<m-p>'
+let g:yankring_replace_n_nkey = '<m-n>'
 "}}}
 
 " Edit the vimrc file {{{
