@@ -20,11 +20,12 @@ cd vimrc
 
 git pull
 # Download vim plugin bundles
+git submodule sync
 git submodule update --init --recursive
 
-# Compile command-t for the current platform
-cd vim/bundle/command-t/ruby/command-t
-(ruby extconf.rb && make clean && make) || warn "Ruby compilation failed. Ruby not installed, maybe?"
+# Compile command-t for the current platform (no longer required)
+#cd vim/bundle/command-t/ruby/command-t
+#(ruby extconf.rb && make clean && make) || warn "Ruby compilation failed. Ruby not installed, maybe?"
 
 # Symlink ~/.vim and ~/.vimrc
 (
@@ -36,9 +37,9 @@ cd vim/bundle/command-t/ruby/command-t
 
 if [ -f /usr/local/bin/mvim -a ! -f /usr/local/bin/vim ]; then
 	(
-	echo "linking vim to mvim"
+	echo "trying to link vim to mvim"
 	cd /usr/local/bin
-	ln -nsf mvim vim
+	ln -nsf mvim vim || warn "Could not link vim to mvim in /usr/local/bin"
 	)
 fi
 
