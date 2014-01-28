@@ -7,7 +7,7 @@ for submodule in *; do
 		cd "$submodule"
 		echo "--- $submodule:"
 		(git checkout develop || git checkout master) 2>/dev/null
-		git pull
+		git pull --ff-only
 		cd ..
 	fi
 done
