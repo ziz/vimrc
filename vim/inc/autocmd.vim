@@ -213,6 +213,12 @@ if has("autocmd")
 		\ endif
 	" }}}
 
+
+	augroup dcss_levdes "{{{
+		au!
+		au BufRead,BufNewFile *.des set syntax=levdes
+	"}}}
+
 endif
 " }}}
 
