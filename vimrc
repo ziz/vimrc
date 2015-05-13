@@ -127,6 +127,7 @@ set wildignore+=wp/**,wp-admin/**,wp-includes/**
 set wildignore=.git/**,.svn/**
 
 set title                       " change the terminal's title
+set titleold=""
 set visualbell                  " don't beep
 set noerrorbells                " don't beep
 set showcmd                     " show (partial) command in the last line of the screen
