@@ -7,11 +7,41 @@
 "     vim -u NONE
 " }}}
 
-" Pathogen {{{
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+
+" Vundle {{{
 filetype off                    " force reloading *after* pathogen loaded
-call pathogen#infect()
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+if isdirectory(expand('$HOME/.vim/bundle/Vundle.vim'))
+	call vundle#begin()
+
+	" let Vundle manage Vundle, required
+	Plugin 'VundleVim/Vundle.vim'
+
+	Plugin 'altercation/vim-colors-solarized'
+
+	Plugin 'vim-airline/vim-airline'
+	Plugin 'vim-airline/vim-airline-themes'
+
+	Plugin 'tpope/vim-fugitive'
+	Plugin 'scrooloose/nerdtree'
+	Plugin 'scrooloose/nerdcommenter'
+	Plugin 'SirVer/ultisnips'
+	Plugin 'honza/vim-snippets'
+	Plugin 'tpope/vim-unimpaired'
+	Plugin 'tpope/vim-dispatch'
+	Plugin 'tpope/vim-repeat'
+	Plugin 'tpope/vim-surround'
+	Plugin 'tpope/vim-eunuch'
+
+	Plugin 'nvie/vim-abolish'
+	
+	call vundle#end()            " required
+endif
+
 filetype plugin indent on       " enable detection, plugins and indenting in one step
 " }}}
 
@@ -19,12 +49,19 @@ filetype plugin indent on       " enable detection, plugins and indenting in one
 " ramdisk creation
 " diskutil erasevolume HFS+ "ramdisk" `hdiutil attach -nomount ram://195312`
 
-" call pathogen#helptags() " Regenerate helpfiles for bundles.
-" Takes a long time, shouldn't be run at startup.
-" Instead, run this when updating: vim -c 'call pathogen#helptags()|q'
 " }}}
 
 " Editing behaviour {{{
+set t_u7= " disable request cursor position (see :help ambiwidth)
+set t_ti= t_te= " disable screen contents restoring (:help restorescreen)
+set timeoutlen=1000
+set ttimeout
+set ttimeoutlen=100
+set mouse=
+
+" leader , because \ is far away from everything
+let mapleader=","
+
 set showmode                    " always show what mode we're currently editing in
 set nowrap                      " don't wrap lines
 set tabstop=4                   " a tab is four spaces
@@ -48,7 +85,11 @@ set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
 set gdefault                    " search/replace "globally" (on a line) by default
 set fillchars=vert:\ 
-set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·,eol:¬
+"set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·,eol:¬
+set listchars=tab:▷\ ,eol:¬,extends:»,precedes:«,trail:°
+set nrformats-=octal
+set ruler
+
 
 set list                        " show invisible characters by default,
                                 " but it is enabled for some file types (see later)
@@ -58,6 +99,7 @@ set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
 set mouse=a                     " enable using the mouse if terminal emulator
                                 "    supports it (xterm does)
 set fileformats="unix,dos,mac"
+set formatoptions+=j " delete comment character when joining commented lines
 set formatoptions+=1            " When wrapping paragraphs, don't end lines
                                 "    with 1-letter words (looks stupid)
 set formatoptions-=t
@@ -85,6 +127,7 @@ set encoding=utf-8
 set lazyredraw                  " don't update the display while executing macros
 set laststatus=2                " tell VIM to always put a status line in, even
                                 "    if there is only one window
+set noshowmode
 set cmdheight=2                 " use a status bar that is 2 rows high
 " }}}
 
@@ -110,6 +153,7 @@ set updatecount=0				" but not for general editing
 
 set directory=~/.vim/.tmp,~/tmp,/tmp
                                 " store swap files in one of these directories
+set backupdir=~/.vim/.backup,~/tmp,/tmp
 set viminfo='20,<50,s2,h            " read/write a .viminfo file, don't store more
                                 "    than 80 lines of registers
 set wildmenu                    " make tab completion for files/buffers act like bash
@@ -136,26 +180,22 @@ set modeline                  " enable mode lines (disabling is a security measu
 set ttyfast                     " always use a fast terminal
 set cursorline                  " underline the current line, for quick orientation
 
-
-command! -bang -nargs=? QFix call QFixToggle(<bang>0)
-function! QFixToggle(forced)
-  if exists("g:qfix_win") && a:forced == 0
-    cclose
-    unlet g:qfix_win
-  else
-    copen 10
-    let g:qfix_win = bufnr("$")
-  endif
-endfunction
+" command! -bang -nargs=? QFix call QFixToggle(<bang>0)
+" function! QFixToggle(forced)
+"   if exists("g:qfix_win") && a:forced == 0
+"     cclose
+"     unlet g:qfix_win
+"   else
+"     copen 10
+"     let g:qfix_win = bufnr("$")
+"   endif
+" endfunction
 
 "command CurrentGroup :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 "\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 "\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-command! CurrentGroup :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
-
-" don't automatically fold php files"
-"let g:DisableAutoPHPFolding = 1
+" command! CurrentGroup :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 
 " }}}
 
@@ -246,7 +286,8 @@ endfunction
 " GUI options and color scheme {{{
 if has("gui_running") "
     "set guifont=Inconsolata:h14
-	set guifont=Inconsolata\ For\ Powerline:h14,Consolas:h12
+"	set guifont=Inconsolata\ For\ Powerline:h14,Consolas:h12
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
     "colorscheme baycomb
     "colorscheme mustang
     "colorscheme molokai
@@ -257,12 +298,16 @@ if has("gui_running") "
     let g:solarized_italic = 1
     colorscheme solarized
 
+
+
     " Remove toolbar, left scrollbar and right scrollbar
     set guioptions-=T
     set guioptions-=l
     set guioptions-=L
     set guioptions-=r
     set guioptions-=R
+
+	set guioptions+=c " console instead of popup
 
 	set guicursor+=a:blinkon0
 
@@ -279,25 +324,25 @@ iab lllorem Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam lacu
 " }}}
 
 " Status line customization {{{
-set statusline=%#DiffAdd#
-set statusline+=%f
-set statusline+=\ 
-set statusline+=%#LineNr#
-set statusline+=%m
-set statusline+=%#DiffAdd#
-set statusline+=%r
-set statusline+=%#LineNr#
-set statusline+=%{fugitive#statusline()}
-set statusline+=%y
-set statusline+=%#DiffChange#
-set statusline+=%{&paste?'[paste]':''}
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%#DiffAdd#
-set statusline+=\ %=
-set statusline+=%#LineNr#
-set statusline+=%-14.(%l,%c%V%)\ %P\ 
-set statusline+=%*
+" set statusline=%#DiffAdd#
+" set statusline+=%f
+" set statusline+=\ 
+" set statusline+=%#LineNr#
+" set statusline+=%m
+" set statusline+=%#DiffAdd#
+" set statusline+=%r
+" set statusline+=%#LineNr#
+" set statusline+=%{fugitive#statusline()}
+" set statusline+=%y
+" set statusline+=%#DiffChange#
+" set statusline+=%{&paste?'[paste]':''}
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%#DiffAdd#
+" set statusline+=\ %=
+" set statusline+=%#LineNr#
+" set statusline+=%-14.(%l,%c%V%)\ %P\ 
+" set statusline+=%*
 " }}}
 
 " local includes {{{
